@@ -292,6 +292,8 @@ tee $HOME/.local/share/tig-stack/grafana/config/custom.ini 2>&1 > /dev/null <<EO
 
 #################################### Security ####################################
 [security]
+admin_user = $INFLUXDB_GRAFANA_USER
+admin_password = $INFLUXDB_GRAFANA_PASSWORD
 
 [security.encryption]
 
