@@ -149,6 +149,25 @@ docker compose --project-directory $HOME/.local/share/tig-stack/telegraf/ up
 ############################################################################################################################################ Setup Influxdb2 & Grafana
 elif [[ "$SELECTION" == "2" ]]; then
 
+## enter Admin username for Influx and Grafana
+INFLUXDB_GRAFANA_USER=$(whiptail --title "Admin username for Influx & Grafana " --inputbox "\nAdmin username for Influx & Grafana" 8 40 $INFLUXDB_GRAFANA_USER 3>&1 1>&2 2>&3)
+if [[ $? -eq 255 ]]; then
+exit 0
+fi
+
+## enter Admin password for Influx and Grafana
+INFLUXDB_GRAFANA_PASSWORD=$(whiptail --title "Admin password for Influx & Grafana " --inputbox "\nAdmin password for Influx & Grafana" 8 40 $INFLUXDB_GRAFANA_PASSWORD 3>&1 1>&2 2>&3)
+if [[ $? -eq 255 ]]; then
+exit 0
+fi
+
+# enter the token that will allow data to be writen to the influx DB
+INFLUXDB_TOKEN=$(whiptail --title "Hostname for identification in Influxdb" --inputbox "\nInflux Token" 8 40 "HYdrv1bCZhsvMhYOq6_wg4NGV2OI9HZch_gh57nquSdAhbjhLMUIeYnCCAoybgJrJlLXRHUnDnz2v-xR0hDt3Q==" 3>&1 1>&2 2>&3)
+if [[ $? -eq 255 ]]; then
+exit 0
+fi
+
+
 # stop Influxdb and grafana docker if running
 docker compose --project-directory $HOME/.local/share/tig-stack/ down
 
