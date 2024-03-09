@@ -25,3 +25,10 @@ These can be changed during the install via interactive prompt along with the TO
 Influx can be accesed on ```<IP Address>:8086```
 
 Grafana can be accesed on ```<IP Address>:3000```
+
+# Connecting Grafana to influx
+
+1. Log into Grafana
+2. Select add new data source
+3. Search for InfluxDB
+4. Enter details as below 
