@@ -594,6 +594,7 @@ echo ""
 sudo rm -rf $HOME/.local/share/tig-stack/
 
 #delete all remaining containers
-docker rm -f $(docker ps -a -q)
+docker remove telegraf
+docker remove influxdb
 
 fi
