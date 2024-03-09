@@ -3,7 +3,7 @@ whiptail script to set up TIG stack
 
 # to Run
 
-'''bash <(curl -s https://raw.githubusercontent.com/safenetforum-community/ntracking/main/tig-stack.sh)'''
+```bash <(curl -s https://raw.githubusercontent.com/safenetforum-community/ntracking/main/tig-stack.sh)```
 
 this script will run a whip tail menu script giving you the options to :
 
