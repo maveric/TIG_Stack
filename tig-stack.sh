@@ -57,7 +57,7 @@ fi
 #make Telegraf directory
 mkdir -p $HOME/.local/share/tig-stack/telegraf
 
-#create telegraf config file
+############################################################################################################################################# create telegraf config file
 tee $HOME/.local/share/tig-stack/telegraf/telegraf.conf 2>&1 > /dev/null <<EOF
 # Configuration for telegraf agent
 [agent]
@@ -118,7 +118,7 @@ tee $HOME/.local/share/tig-stack/telegraf/telegraf.conf 2>&1 > /dev/null <<EOF
   # ignore_mount_opts = []
 
 EOF
-
+################################################################################################################################################## End of Telegraf config
 
 # write docker compose config file
 
