@@ -589,6 +589,8 @@ sudo ufw delete allow 8086/tcp
 
 echo " stoping docker containers"
 docker compose --project-directory $HOME/.local/share/tig-stack/telegraf/ down
+docker compose --project-directory $HOME/.local/share/tig-stack/telegraf/ down
+sleep 5
 echo ""
 sudo rm -rf $HOME/.local/share/tig-stack/
 
