@@ -14,8 +14,8 @@ this script will run a whip tail menu script giving you the options to :
 
 
 # Defaults for Influx and Grafana
-username: safe
-password: jidjedewTSuIw4EmqhoOo
+username: '''safe'''
+password: '''jidjedewTSuIw4EmqhoOo'''
 
 These can be changed during the install via interactive prompt along with the TOKEN for data ingress to Influx2 Database
 
