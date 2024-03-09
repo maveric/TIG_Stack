@@ -14,7 +14,7 @@ this script will run a whip tail menu script giving you the options to :
 
 Port 8086 will be opened by ufw to allow data ingress on the machine hosting Influxdb and Grafana
 
-Docker Engine must be installed first
+Docker Engine must be installed first on all machines
 
 Telegraf must be installed on all machines that are to send data to influx including the one which hosts Influx and Grafana.
 
