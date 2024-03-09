@@ -1,4 +1,4 @@
-# TIG_Stack
+# TIG_Stack Telegraf Influx Grafana
 whiptail script to set up TIG stack 
 
 # to Run
