@@ -32,3 +32,4 @@ Grafana can be accesed on ```<IP Address>:3000```
 2. Select add new data source
 3. Search for InfluxDB
 4. Enter details as below 
+![connect Grafana to influx](https://github.com/safenetforum-community/TIG_Stack/assets/25412853/2a1368de-bb40-49e3-98d3-1709934221bc)
