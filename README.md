@@ -12,6 +12,7 @@ this script will run a whip tail menu script giving you the options to :
 3. install Docker engine.
 4. uninstall telegraf influx and grafana dockers.
 
+port 8086 will be opened by ufw to allow data ingress on the machine hosting Influxdb and Grafana
 
 # Defaults for Influx and Grafana
 username: ```safe```
@@ -20,7 +21,7 @@ password: ```jidjedewTSuIw4EmqhoOo```
 
 These can be changed during the install via interactive prompt along with the TOKEN for data ingress to Influx2 Database
 
-#Access
+# How to access
 
 Influx can be accesed on ```<IP Address>:8086```
 
