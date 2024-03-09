@@ -143,7 +143,7 @@ networks:
 EOF
 
 
-# start telegraf docker and start loging tp influx 
+#start docker contaner it will start in forground so you can see any errors just close terminal when satisfied
 docker compose --project-directory $HOME/.local/share/tig-stack/telegraf/ up
 
 ############################################################################################################################################ Setup Influxdb2 & Grafana
@@ -546,7 +546,11 @@ networks:
     driver: bridge
 EOF
 
+#open firewall port fot data ingress
+sudo ufw allow 8086/tcp comment 'infuxdb2'
 
+#start docker contaner it will start in forground so you can see any errors just close terminal when satisfied
+# it will restart automaticaly on boot
 docker compose --project-directory $HOME/.local/share/tig-stack/ up
 
 
@@ -579,6 +583,9 @@ exit 0
 
 ############################################################################################################################################### Stop & Uninstall TIG Stack
 elif [[ "$SELECTION" == "5" ]]; then
+
+#close firewall port fot data ingress if open
+sudo ufw delete allow 8086/tcp
 
 echo " stoping docker containers"
 docker compose --project-directory $HOME/.local/share/tig-stack/telegraf/ down
