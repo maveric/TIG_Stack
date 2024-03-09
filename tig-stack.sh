@@ -588,8 +588,7 @@ elif [[ "$SELECTION" == "5" ]]; then
 sudo ufw delete allow 8086/tcp
 
 echo " stoping docker containers"
-docker compose --project-directory $HOME/.local/share/tig-stack/telegraf/ down
-docker compose --project-directory $HOME/.local/share/tig-stack/telegraf/ down
+docker stop  $(docker ps -a -q)
 sleep 5
 echo ""
 sudo rm -rf $HOME/.local/share/tig-stack/
