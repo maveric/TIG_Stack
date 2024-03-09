@@ -13,7 +13,7 @@ this script will run a whip tail menu script giving you the options to :
 4. uninstall telegraf influx and grafana dockers.
 
 
-# Defaultss for Influx and Grafana
+# Defaults for Influx and Grafana
 username: ```safe```
 
 password: ```jidjedewTSuIw4EmqhoOo```
