@@ -480,7 +480,7 @@ docker compose --project-directory $HOME/.local/share/tig-stack/telegraf down
 sudo rm -rf $HOME/.local/share/tig-stack/telegraf
 
 # enter the ipaddress and port of the influx instalation
-INFLUXDB_IP_PORT=$(whiptail --title "IP address & Port of Influxdb2 & Grafana Host" --inputbox "\nIP Address & Port of Influxdb & Grafana" 8 60 IP HOSTNAME:$INFLUXDB_PORT 3>&1 1>&2 2>&3)
+INFLUXDB_IP_PORT=$(whiptail --title "IP address & Port of Influxdb2 & Grafana Host" --inputbox "\nIP Address & Port of Influxdb & Grafana" 8 60 IP_HOSTNAME:$INFLUXDB_PORT 3>&1 1>&2 2>&3)
 if [[ $? -eq 255 ]]; then
 exit 0
 fi
