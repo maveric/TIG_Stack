@@ -23,7 +23,7 @@ SELECTION=$(whiptail --title "TIG Stack Setup" --radiolist \
 "2" "Setup Influxdb2 & Grafana" OFF \
 "3" "Install Telegraf" OFF \
 "4" "Exit" ON \
-"5" "Stop & Uninstall TIG Stack" OFF 3>&1 1>&2 2>&3)
+"5" "Stop & Uninstall TIG Stack          " OFF 3>&1 1>&2 2>&3)
 
 if [[ $? -eq 255 ]]; then
 exit 0
