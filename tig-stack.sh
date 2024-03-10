@@ -2,7 +2,9 @@
 
 # edit these defaults here or edit them in an interactive menu when the script is run
 INFLUXDB_GRAFANA_USER="safe"
+GRAFANA_PORT="3000"
 INFLUXDB_GRAFANA_PASSWORD="jidjedewTSuIw4EmqhoOo"
+INFLUXDB_PORT="8086"
 INFLUXDB_TOKEN="HYdrv1bCZhsvMhYOq6_wg4NGV2OI9HZch_gh57nquSdAhbjhLMUIeYnCCAoybgJrJlLXRHUnDnz2v-xR0hDt3Q=="
 
 
@@ -71,6 +73,17 @@ if [[ $? -eq 255 ]]; then
 exit 0
 fi
 
+## Enter Enter the port Influxdb will be run on
+INFLUXDB_PORT=$(whiptail --title "Enter the port InfluxDB will run on " --inputbox "\nEnter Enter the port Influxdb will be run on" 8 40 $INFLUXDB_PORT 3>&1 1>&2 2>&3)
+if [[ $? -eq 255 ]]; then
+exit 0
+fi
+
+## Enter Enter the port Grafana will be accesed on
+GRAFANA_PORT=$(whiptail --title "Enter the port Grafana will be run on " --inputbox "\nEnter Enter the port Grafana will be run on" 8 40 $GRAFANA_PORT 3>&1 1>&2 2>&3)
+if [[ $? -eq 255 ]]; then
+exit 0
+fi
 
 # stop Influxdb and grafana docker if running
 docker compose --project-directory $HOME/.local/share/tig-stack/ down
@@ -417,7 +430,7 @@ services:
       - $HOME/.local/share/tig-stack/influxdb/data:/var/lib/influxdb2
       - $HOME/.local/share/tig-stack/influxdb/config:/etc/influxdb2
     ports:
-      - 8086:8086
+      - "$INFLUXDB_PORT":8086
     restart: unless-stopped
     networks:
       - tig_network
@@ -432,7 +445,7 @@ services:
     container_name: grafana
     user: "1000:1000"
     ports:
-      - 3000:3000
+      - "$GRAFANA_PORT":3000
     volumes:
       # Make sure you create these local directories
       - $HOME/.local/share/tig-stack/grafana/data:/var/lib/grafana
@@ -451,7 +464,7 @@ networks:
 EOF
 
 #open firewall port fot data ingress
-sudo ufw allow 8086/tcp comment 'infuxdb2'
+sudo ufw allow "$INFLUXDB_PORT"/tcp comment 'infuxdb2'
 
 #start docker contaner it will start in forground so you can see any errors just close terminal when satisfied
 # it will restart automaticaly on boot
@@ -467,13 +480,13 @@ docker compose --project-directory $HOME/.local/share/tig-stack/telegraf down
 sudo rm -rf $HOME/.local/share/tig-stack/telegraf
 
 # enter the ipaddress and port of the influx instalation
-INFLUXDB_IP_PORT=$(whiptail --title "IP address & Port of Influxdb2" --inputbox "\nIP address & Port of Influxdb2" 8 40 0.0.0.0:8086 3>&1 1>&2 2>&3)
+INFLUXDB_IP_PORT=$(whiptail --title "IP address & Port of machine that Influxdb2 & Grafana are installed on" --inputbox "\nIP address & Port of Influxdb2" 8 40 "IP or Host Name:$INFLUXDB_PORT" 3>&1 1>&2 2>&3)
 if [[ $? -eq 255 ]]; then
 exit 0
 fi
 
 # enter the token that will allow data to be writen to the influx DB
-INFLUXDB_TOKEN=$(whiptail --title "Token for use with Influxdb" --inputbox "\nInflux Token" 8 40 "HYdrv1bCZhsvMhYOq6_wg4NGV2OI9HZch_gh57nquSdAhbjhLMUIeYnCCAoybgJrJlLXRHUnDnz2v-xR0hDt3Q==" 3>&1 1>&2 2>&3)
+INFLUXDB_TOKEN=$(whiptail --title "Token for use with Influxdb" --inputbox "\nInflux Token" 8 40 "$INFLUXDB_TOKEN" 3>&1 1>&2 2>&3)
 if [[ $? -eq 255 ]]; then
 exit 0
 fi
