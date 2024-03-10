@@ -17,9 +17,9 @@ button=black,white
 
 SELECTION=$(whiptail --title "TIG Stack Setup" --radiolist \
 "TIG Stack Setup Actions                              " 20 70 10 \
-"1" "Install Telegraf" OFF \
-"2" "Setup Influxdb2 & Grafana" OFF \
 "3" "Install Docker Engine" OFF \
+"2" "Setup Influxdb2 & Grafana" OFF \
+"1" "Install Telegraf" OFF \
 "4" "Exit" ON \
 "5" "Stop & Uninstall TIG Stack" OFF 3>&1 1>&2 2>&3)
 
