@@ -430,7 +430,7 @@ services:
       - $HOME/.local/share/tig-stack/influxdb/data:/var/lib/influxdb2
       - $HOME/.local/share/tig-stack/influxdb/config:/etc/influxdb2
     ports:
-      - "$INFLUXDB_PORT":8086
+      - $INFLUXDB_PORT:8086
     restart: unless-stopped
     networks:
       - tig_network
@@ -445,7 +445,7 @@ services:
     container_name: grafana
     user: "1000:1000"
     ports:
-      - "$GRAFANA_PORT":3000
+      - $GRAFANA_PORT:3000
     volumes:
       # Make sure you create these local directories
       - $HOME/.local/share/tig-stack/grafana/data:/var/lib/grafana
