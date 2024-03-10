@@ -31,7 +31,7 @@ fi
 
 
 ############################################################################################################################################## Install Docker Engine
-elif [[ "$SELECTION" == "1" ]]; then
+if [[ "$SELECTION" == "1" ]]; then
 
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
@@ -471,7 +471,7 @@ sudo ufw allow "$INFLUXDB_PORT"/tcp comment 'infuxdb2'
 docker compose --project-directory $HOME/.local/share/tig-stack/ up
 
 ############################################################################################################################################### Install Telegraf
-if [[ "$SELECTION" == "3" ]]; then
+elif [[ "$SELECTION" == "3" ]]; then
 
 # stop Telegraf docker if running
 docker compose --project-directory $HOME/.local/share/tig-stack/telegraf down
