@@ -1,7 +1,7 @@
 # TIG_Stack Telegraf Influx Grafana
 whiptail script to set up TIG stack 
 
-# to Run
+# Prereq
 
 Do not tun as root user if you need to create a normal user with sudo rights and switch to that user.
 
@@ -10,6 +10,8 @@ adduser <username>
 usermod -aG sudo <username>
 su - u <username>
 ```
+
+# to Run
 
 ```bash <(curl -s https://raw.githubusercontent.com/safenetforum-community/TIG_Stack/main/tig-stack.sh)```
 
