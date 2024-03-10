@@ -610,5 +610,6 @@ sudo rm -rf $HOME/.local/share/tig-stack/
 #delete all remaining containers
 docker remove telegraf
 docker remove influxdb
+docker remove grafana
 
 fi
