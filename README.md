@@ -3,7 +3,7 @@ whiptail script to set up TIG stack
 
 # to Run
 
-Do not tun as root user create a normal user with sudo rights
+Do not tun as root user if you need to create a normal user with sudo rights and switch to that user.
 
 ```
 adduser <username>
