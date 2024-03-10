@@ -27,124 +27,28 @@ if [[ $? -eq 255 ]]; then
 exit 0
 fi
 
-############################################################################################################################################### Install Telegraf
-if [[ "$SELECTION" == "3" ]]; then
 
-# stop Telegraf docker if running
-docker compose --project-directory $HOME/.local/share/tig-stack/telegraf down
+############################################################################################################################################## Install Docker Engine
+elif [[ "$SELECTION" == "1" ]]; then
 
-#remove old folders and config files if they exist 
-sudo rm -rf $HOME/.local/share/tig-stack/telegraf
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
 
-# enter the ipaddress and port of the influx instalation
-INFLUXDB_IP_PORT=$(whiptail --title "IP address & Port of Influxdb2" --inputbox "\nIP address & Port of Influxdb2" 8 40 0.0.0.0:8086 3>&1 1>&2 2>&3)
-if [[ $? -eq 255 ]]; then
-exit 0
-fi
-
-# enter the token that will allow data to be writen to the influx DB
-INFLUXDB_TOKEN=$(whiptail --title "Token for use with Influxdb" --inputbox "\nInflux Token" 8 40 "HYdrv1bCZhsvMhYOq6_wg4NGV2OI9HZch_gh57nquSdAhbjhLMUIeYnCCAoybgJrJlLXRHUnDnz2v-xR0hDt3Q==" 3>&1 1>&2 2>&3)
-if [[ $? -eq 255 ]]; then
-exit 0
-fi
-
-## enter hostname which will be used as inlux label to identify which system the telegraf data comes from
-HOSTNAME=$(whiptail --title "Hostname for identification in Influxdb" --inputbox "\nHostname for identification in Influxdb" 8 40 Hostname 3>&1 1>&2 2>&3)
-if [[ $? -eq 255 ]]; then
-exit 0
-fi
-
-#make Telegraf directory
-mkdir -p $HOME/.local/share/tig-stack/telegraf
-
-############################################################################################################################################# create telegraf config file
-tee $HOME/.local/share/tig-stack/telegraf/telegraf.conf 2>&1 > /dev/null <<EOF
-# Configuration for telegraf agent
-[agent]
-  interval = "10s"
-  round_interval = true
-  metric_batch_size = 1000
-  metric_buffer_limit = 10000
-  collection_jitter = "0s"
-  flush_interval = "10s"
-  flush_jitter = "0s"
-  precision = ""
-  hostname = "$HOSTNAME"
-  omit_hostname = false
-  
-[[outputs.influxdb_v2]]
-  urls = ["http://$INFLUXDB_IP_PORT"]
-  token = "$INFLUXDB_TOKEN"
-  organization = "safe-org"
-  bucket = "telegraf"
-
-########################################################## Monitors CPU
-[[inputs.cpu]]
-  percpu = false
-  totalcpu = true
-  collect_cpu_time = false
-  report_active = false
-  core_tags = false
-  
-######################################################### Read metrics about memory usage
-[[inputs.mem]]
-  # no configuration
-
-######################################################### Monitors internet speed using speedtest.net service
-[[inputs.internet_speed]]
-  ## This plugin downloads many MB of data each time it is run. As such
-  ## consider setting a higher interval for this plugin to reduce the
-  ## demand on your internet connection.
-  interval = "10m"
-
-  ## Sets if runs file download test
-  # enable_file_download = false
-
-  ## Caches the closest server location
-  # cache = false
-
-########################################################### Read metrics about disk usage by mount point
-[[inputs.disk]]
-  ## By default stats will be gathered for all mount points.
-  ## Set mount_points will restrict the stats to only the specified mount points.
-  # mount_points = ["/"]
-
-  ## Ignore mount points by filesystem type.
-  ignore_fs = ["tmpfs", "devtmpfs", "devfs", "iso9660", "overlay", "aufs", "squashfs"]
-
-  ## Ignore mount points by mount options.
-  ## The 'mount' command reports options of all mounts in parathesis.
-  ## Bind mounts can be ignored with the special 'bind' option.
-  # ignore_mount_opts = []
-
-EOF
-################################################################################################################################################## End of Telegraf config
-
-# write docker compose config file
-
-tee $HOME/.local/share/tig-stack/telegraf/docker-compose.yaml 2>&1 > /dev/null <<EOF
-version: "3.8"
-services:
-
-  telegraf:
-    image: telegraf:1.29.5
-    container_name: telegraf
-    user: "1000:1000"
-    volumes:
-      # Make sure you create this local directory
-      - $HOME/.local/share/tig-stack/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf
-    restart: unless-stopped
-    networks:
-      - tig_network
-
-networks:
-  tig_network:
-    driver: bridge
-EOF
+#test install with
+#sudo docker run hello-world
 
 
-#start docker contaner it will start in forground so you can see any errors just close terminal when satisfied
-docker compose --project-directory $HOME/.local/share/tig-stack/telegraf/ up
+#set up docker user so dont have to run all comands as roor or with sudo
+sudo groupadd docker
+sleep 1
+sudo usermod -aG docker $USER
+sleep 1
+newgrp docker
+sleep 1
+# test without sudo
+
+# to test install you can run 
+#                                docker run hello-world
 
 ############################################################################################################################################ Setup Influxdb2 & Grafana
 elif [[ "$SELECTION" == "2" ]]; then
@@ -553,28 +457,124 @@ sudo ufw allow 8086/tcp comment 'infuxdb2'
 # it will restart automaticaly on boot
 docker compose --project-directory $HOME/.local/share/tig-stack/ up
 
+############################################################################################################################################### Install Telegraf
+if [[ "$SELECTION" == "3" ]]; then
 
-############################################################################################################################################## Install Docker Engine
-elif [[ "$SELECTION" == "1" ]]; then
+# stop Telegraf docker if running
+docker compose --project-directory $HOME/.local/share/tig-stack/telegraf down
 
-curl -fsSL https://get.docker.com -o get-docker.sh
-sudo sh get-docker.sh
+#remove old folders and config files if they exist 
+sudo rm -rf $HOME/.local/share/tig-stack/telegraf
 
-#test install with
-#sudo docker run hello-world
+# enter the ipaddress and port of the influx instalation
+INFLUXDB_IP_PORT=$(whiptail --title "IP address & Port of Influxdb2" --inputbox "\nIP address & Port of Influxdb2" 8 40 0.0.0.0:8086 3>&1 1>&2 2>&3)
+if [[ $? -eq 255 ]]; then
+exit 0
+fi
+
+# enter the token that will allow data to be writen to the influx DB
+INFLUXDB_TOKEN=$(whiptail --title "Token for use with Influxdb" --inputbox "\nInflux Token" 8 40 "HYdrv1bCZhsvMhYOq6_wg4NGV2OI9HZch_gh57nquSdAhbjhLMUIeYnCCAoybgJrJlLXRHUnDnz2v-xR0hDt3Q==" 3>&1 1>&2 2>&3)
+if [[ $? -eq 255 ]]; then
+exit 0
+fi
+
+## enter hostname which will be used as inlux label to identify which system the telegraf data comes from
+HOSTNAME=$(whiptail --title "Hostname for identification in Influxdb" --inputbox "\nHostname for identification in Influxdb" 8 40 Hostname 3>&1 1>&2 2>&3)
+if [[ $? -eq 255 ]]; then
+exit 0
+fi
+
+#make Telegraf directory
+mkdir -p $HOME/.local/share/tig-stack/telegraf
+
+############################################################################################################################################# create telegraf config file
+tee $HOME/.local/share/tig-stack/telegraf/telegraf.conf 2>&1 > /dev/null <<EOF
+# Configuration for telegraf agent
+[agent]
+  interval = "10s"
+  round_interval = true
+  metric_batch_size = 1000
+  metric_buffer_limit = 10000
+  collection_jitter = "0s"
+  flush_interval = "10s"
+  flush_jitter = "0s"
+  precision = ""
+  hostname = "$HOSTNAME"
+  omit_hostname = false
+  
+[[outputs.influxdb_v2]]
+  urls = ["http://$INFLUXDB_IP_PORT"]
+  token = "$INFLUXDB_TOKEN"
+  organization = "safe-org"
+  bucket = "telegraf"
+
+########################################################## Monitors CPU
+[[inputs.cpu]]
+  percpu = false
+  totalcpu = true
+  collect_cpu_time = false
+  report_active = false
+  core_tags = false
+  
+######################################################### Read metrics about memory usage
+[[inputs.mem]]
+  # no configuration
+
+######################################################### Monitors internet speed using speedtest.net service
+[[inputs.internet_speed]]
+  ## This plugin downloads many MB of data each time it is run. As such
+  ## consider setting a higher interval for this plugin to reduce the
+  ## demand on your internet connection.
+  interval = "10m"
+
+  ## Sets if runs file download test
+  # enable_file_download = false
+
+  ## Caches the closest server location
+  # cache = false
+
+########################################################### Read metrics about disk usage by mount point
+[[inputs.disk]]
+  ## By default stats will be gathered for all mount points.
+  ## Set mount_points will restrict the stats to only the specified mount points.
+  # mount_points = ["/"]
+
+  ## Ignore mount points by filesystem type.
+  ignore_fs = ["tmpfs", "devtmpfs", "devfs", "iso9660", "overlay", "aufs", "squashfs"]
+
+  ## Ignore mount points by mount options.
+  ## The 'mount' command reports options of all mounts in parathesis.
+  ## Bind mounts can be ignored with the special 'bind' option.
+  # ignore_mount_opts = []
+
+EOF
+################################################################################################################################################## End of Telegraf config
+
+# write docker compose config file
+
+tee $HOME/.local/share/tig-stack/telegraf/docker-compose.yaml 2>&1 > /dev/null <<EOF
+version: "3.8"
+services:
+
+  telegraf:
+    image: telegraf:1.29.5
+    container_name: telegraf
+    user: "1000:1000"
+    volumes:
+      # Make sure you create this local directory
+      - $HOME/.local/share/tig-stack/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf
+    restart: unless-stopped
+    networks:
+      - tig_network
+
+networks:
+  tig_network:
+    driver: bridge
+EOF
 
 
-#set up docker user so dont have to run all comands as roor or with sudo
-sudo groupadd docker
-sleep 1
-sudo usermod -aG docker $USER
-sleep 1
-newgrp docker
-sleep 1
-# test without sudo
-
-# to test install you can run 
-#                                docker run hello-world
+#start docker contaner it will start in forground so you can see any errors just close terminal when satisfied
+docker compose --project-directory $HOME/.local/share/tig-stack/telegraf/ up
 
 ############################################################################################################################################## Exit
 elif [[ "$SELECTION" == "4" ]]; then
