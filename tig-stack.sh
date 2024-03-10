@@ -470,7 +470,7 @@ sudo ufw allow "$INFLUXDB_PORT"/tcp comment 'infuxdb2'
 # it will restart automaticaly on boot
 docker compose --project-directory $HOME/.local/share/tig-stack/ up
 
-############################################################################################################################################### Install Telegraf
+####################################################################################################################################################################################################### Install Telegraf
 elif [[ "$SELECTION" == "3" ]]; then
 
 # stop Telegraf docker if running
@@ -480,7 +480,7 @@ docker compose --project-directory $HOME/.local/share/tig-stack/telegraf down
 sudo rm -rf $HOME/.local/share/tig-stack/telegraf
 
 # enter the ipaddress and port of the influx instalation
-INFLUXDB_IP_PORT=$(whiptail --title "IP address & Port of machine that Influxdb2 & Grafana are installed on" --inputbox "\nIP address & Port of Influxdb2" 8 40 "IP or Host Name:$INFLUXDB_PORT" 3>&1 1>&2 2>&3)
+INFLUXDB_IP_PORT=$(whiptail --title "IP address & Port of Influxdb2 & Grafana Host" --inputbox "\nIP Address & Port of Influxdb & Grafana" 8 60 IP HOSTNAME"$INFLUXDB_PORT" 3>&1 1>&2 2>&3)
 if [[ $? -eq 255 ]]; then
 exit 0
 fi
