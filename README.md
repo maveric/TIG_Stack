@@ -5,9 +5,11 @@ whiptail script to set up TIG stack
 
 Do not tun as root user create a normal user with sudo rights
 
-```adduser <username>
+```
+adduser <username>
 usermod -aG sudo <username>
-su - u <username>```
+su - u <username>
+```
 
 ```bash <(curl -s https://raw.githubusercontent.com/safenetforum-community/TIG_Stack/main/tig-stack.sh)```
 
