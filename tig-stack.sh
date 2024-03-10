@@ -17,9 +17,9 @@ button=black,white
 
 SELECTION=$(whiptail --title "TIG Stack Setup" --radiolist \
 "TIG Stack Setup Actions                              " 20 70 10 \
-"3" "Install Docker Engine" OFF \
+"1" "Install Docker Engine" OFF \
 "2" "Setup Influxdb2 & Grafana" OFF \
-"1" "Install Telegraf" OFF \
+"3" "Install Telegraf" OFF \
 "4" "Exit" ON \
 "5" "Stop & Uninstall TIG Stack" OFF 3>&1 1>&2 2>&3)
 
@@ -28,7 +28,7 @@ exit 0
 fi
 
 ############################################################################################################################################### Install Telegraf
-if [[ "$SELECTION" == "1" ]]; then
+if [[ "$SELECTION" == "3" ]]; then
 
 # stop Telegraf docker if running
 docker compose --project-directory $HOME/.local/share/tig-stack/telegraf down
@@ -555,7 +555,7 @@ docker compose --project-directory $HOME/.local/share/tig-stack/ up
 
 
 ############################################################################################################################################## Install Docker Engine
-elif [[ "$SELECTION" == "3" ]]; then
+elif [[ "$SELECTION" == "1" ]]; then
 
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
