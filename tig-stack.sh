@@ -597,8 +597,9 @@ exit 0
 ############################################################################################################################################### Stop & Uninstall TIG Stack
 elif [[ "$SELECTION" == "5" ]]; then
 
-#close firewall port fot data ingress if open
-sudo ufw delete allow 8086/tcp
+#close firewall port for data ingress if open
+#InfluxDB2
+ yes y | sudo ufw delete $(sudo ufw status numbered |(grep 'influxdb2'|awk -F"[][]" '{print $2}')) && yes y | sudo ufw delete $(sudo ufw status numbered |(grep 'influxdb2'|awk -F"[][]" '{print $2}'))
 
 echo " stoping docker containers"
 docker stop  $(docker ps -a -q)
