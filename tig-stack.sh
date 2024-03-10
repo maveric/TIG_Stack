@@ -521,44 +521,64 @@ tee $HOME/.local/share/tig-stack/telegraf/telegraf.conf 2>&1 > /dev/null <<EOF
   organization = "safe-org"
   bucket = "telegraf"
 
-########################################################## Monitors CPU
+# cpu stats
 [[inputs.cpu]]
   percpu = false
   totalcpu = true
   collect_cpu_time = false
   report_active = false
-  core_tags = false
-  
-######################################################### Read metrics about memory usage
+
+# Read metrics about disk usage by mount point
+[[inputs.disk]]
+  ## By default stats will be gathered for all mount points.
+  ## Set mount_points will restrict the stats to only the specified mount points.
+  mount_points = ["/"]
+  ## Ignore mount points by filesystem type.
+  # ignore_fs = ["tmpfs", "devtmpfs", "devfs", "iso9660", "overlay", "aufs", "squashfs"]
+
+[[inputs.diskio]]
+  devices = ["sd?", "nvme?", "nvme?n?"]
+
+# Get kernel statistics from /proc/stat
+[[inputs.kernel]]
+  collect = ["psi"]
+
+# Provides Linux sysctl fs metrics
+[[inputs.linux_sysctl_fs]]
+  # no configuration
+
+# Read metrics about memory usage
 [[inputs.mem]]
   # no configuration
 
-######################################################### Monitors internet speed using speedtest.net service
+[[inputs.net]]
+  interfaces = ["en*", "eth*", "ib*", "wl*"]
+
+[[inputs.netstat]]
+  # no configuration
+
+# Get the number of processes and group them by status
+[[inputs.processes]]
+  # no configuration
+
+# Read metrics about swap memory usage
+[[inputs.swap]]
+  # no configuration
+
+# Read metrics about system load & uptime
+[[inputs.system]]
+  # no configuration
+
+[[inputs.temp]]
+  # no configuration
+
+# Monitors internet speed using speedtest.net service
 [[inputs.internet_speed]]
   ## This plugin downloads many MB of data each time it is run. As such
   ## consider setting a higher interval for this plugin to reduce the
   ## demand on your internet connection.
-  interval = "10m"
+  interval = "15m"
 
-  ## Sets if runs file download test
-  # enable_file_download = false
-
-  ## Caches the closest server location
-  # cache = false
-
-########################################################### Read metrics about disk usage by mount point
-[[inputs.disk]]
-  ## By default stats will be gathered for all mount points.
-  ## Set mount_points will restrict the stats to only the specified mount points.
-  # mount_points = ["/"]
-
-  ## Ignore mount points by filesystem type.
-  ignore_fs = ["tmpfs", "devtmpfs", "devfs", "iso9660", "overlay", "aufs", "squashfs"]
-
-  ## Ignore mount points by mount options.
-  ## The 'mount' command reports options of all mounts in parathesis.
-  ## Bind mounts can be ignored with the special 'bind' option.
-  # ignore_mount_opts = []
 
 EOF
 ################################################################################################################################################## End of Telegraf config
