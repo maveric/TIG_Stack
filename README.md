@@ -3,6 +3,12 @@ whiptail script to set up TIG stack
 
 # to Run
 
+Do not tun as root user create a normal user with sudo rights
+
+```adduser <username>
+usermod -aG sudo <username>
+su - u <username>```
+
 ```bash <(curl -s https://raw.githubusercontent.com/safenetforum-community/TIG_Stack/main/tig-stack.sh)```
 
 this script will run a whip tail menu script giving you the options to :
