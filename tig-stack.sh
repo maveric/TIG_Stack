@@ -569,7 +569,7 @@ tee $HOME/.local/share/tig-stack/telegraf/telegraf.conf 2>&1 > /dev/null <<EOF
   ## consider setting a higher interval for this plugin to reduce the
   ## demand on your internet connection.
   interval = "15m"
-  EOF
+ EOF
 ################################################################################################################################################## End of Telegraf config
 
 # write docker compose config file
