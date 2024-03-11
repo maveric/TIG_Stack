@@ -58,3 +58,6 @@ after connecting Grafana and InfluxDB select the option to import Dashboard
 1. copy the Dashboard json from the file https://github.com/safenetforum-community/TIG_Stack/blob/main/Grafana%20Dashboard%20json
 2. paste it into the impot window and save
 3. refresh Grafana and load the dashboard
+
+![image](https://github.com/safenetforum-community/TIG_Stack/assets/25412853/b3d390e9-e50b-44cb-b174-19a2cfd58e91)
+
