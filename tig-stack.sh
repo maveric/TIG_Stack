@@ -476,6 +476,9 @@ elif [[ "$SELECTION" == "3" ]]; then
 # stop Telegraf docker if running
 docker compose --project-directory $HOME/.local/share/tig-stack/telegraf down
 
+# remove telegraf contaner
+docker remove telegraf
+
 #remove old folders and config files if they exist 
 sudo rm -rf $HOME/.local/share/tig-stack/telegraf
 
