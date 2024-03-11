@@ -542,7 +542,7 @@ tee $HOME/.local/share/tig-stack/telegraf/telegraf.conf 2>&1 > /dev/null <<EOF
   # no configuration
 
 [[inputs.diskio]]
-  devices = ["xvda?", "sd?", "md?", "nvme?", "nvme?n?"]
+  devices = ["xvda3", "sd?", "md?", "nvme?", "nvme?n?"]
 
 # Read metrics about system load & uptime
 [[inputs.system]]
