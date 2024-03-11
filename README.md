@@ -51,3 +51,10 @@ Grafana can be accesed on ```<IP Address>:3000```
 5. click safe and test and if it goes green InfluxDB and Grafana are now connected.
 ![connect Grafana to influx](https://github.com/safenetforum-community/TIG_Stack/assets/25412853/8cd2e8b6-7b32-4d9c-b10c-4cfd5b77deca)
 
+# Import Grafana dashboard
+
+after connecting Grafana and InfluxDB select the option to import Dashboard
+
+1. copy the Dashboard json from the file https://github.com/safenetforum-community/TIG_Stack/blob/main/Grafana%20Dashboard%20json
+2. paste it into the impot window and save
+3. refresh Grafana and load the dashboard
