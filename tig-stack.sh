@@ -88,6 +88,10 @@ fi
 # stop Influxdb and grafana docker if running
 docker compose --project-directory $HOME/.local/share/tig-stack/ down
 
+#remove Grafana and Influx contaners
+docker remove influxdb
+docker remove grafana
+
 #remove old folders and config files if they exists
 sudo rm -rf $HOME/.local/share/tig-stack/grafana \
   $HOME/.local/share/tig-stack/influxdb
@@ -100,6 +104,7 @@ mkdir -p $HOME/.local/share/tig-stack/influxdb/data \
   $HOME/.local/share/tig-stack/grafana/config \
   $HOME/.local/share/tig-stack/grafana/log
 
+sleep 1
 
 ##################################################################################write the influxdb.conf file leave this as it is for defaults
 tee $HOME/.local/share/tig-stack/influxdb/config/config.yml 2>&1 > /dev/null <<EOF
@@ -464,7 +469,7 @@ networks:
 EOF
 
 #open firewall port fot data ingress
-sudo ufw allow "$INFLUXDB_PORT"/tcp comment 'influxdb2'
+#sudo ufw allow "$INFLUXDB_PORT"/tcp comment 'influxdb2'
 
 #start docker contaner it will start in forground so you can see any errors just close terminal when satisfied
 # it will restart automaticaly on boot
