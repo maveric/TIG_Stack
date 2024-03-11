@@ -1,4 +1,6 @@
 # TIG_Stack Telegraf Influx Grafana
+![image](https://github.com/safenetforum-community/TIG_Stack/assets/25412853/b3d390e9-e50b-44cb-b174-19a2cfd58e91)
+
 whiptail script to set up TIG stack 
 
 # Prereq
@@ -59,5 +61,5 @@ after connecting Grafana and InfluxDB select the option to import Dashboard
 2. paste it into the impot window and save
 3. refresh Grafana and load the dashboard
 
-![image](https://github.com/safenetforum-community/TIG_Stack/assets/25412853/b3d390e9-e50b-44cb-b174-19a2cfd58e91)
+
 
