@@ -1,5 +1,6 @@
 # TIG_Stack Telegraf Influx Grafana
-![image](https://github.com/safenetforum-community/TIG_Stack/assets/25412853/b3d390e9-e50b-44cb-b174-19a2cfd58e91)
+![image](https://github.com/safenetforum-community/TIG_Stack/assets/25412853/c664914d-7303-40b5-9553-c4b6045c8eaf)
+
 
 whiptail script to set up TIG stack 
 
