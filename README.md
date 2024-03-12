@@ -24,8 +24,6 @@ this script will run a whip tail menu script giving you the options to :
 3. install Docker engine.
 4. uninstall telegraf influx and grafana dockers.
 
-Port 8086 will be opened by ufw to allow data ingress on the machine hosting Influxdb and Grafana
-
 Docker Engine must be installed first on all machines
 
 Telegraf must be installed on all machines that are to send data to influx including the one which hosts Influx and Grafana.
@@ -58,7 +56,7 @@ Grafana can be accesed on ```<IP Address>:3000```
 after connecting Grafana and InfluxDB select the option to import Dashboard
 
 1. copy the Dashboard json from the file https://github.com/safenetforum-community/TIG_Stack/blob/main/Grafana%20Dashboard%20json
-2. paste it into the impot window and save
+2. paste it into the import dashboard window and save
 3. refresh Grafana and load the dashboard
 
 
