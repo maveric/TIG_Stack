@@ -568,7 +568,7 @@ sudo tee /etc/telegraf/telegraf.conf 2>&1 > /dev/null <<EOF
   interfaces = ["eno*", "eth*", "ib*", "wl*"]
 EOF
 ################################################################################################################################################## End of Telegraf config
-systemctl unmask telegraf.service
+sudo systemctl unmask telegraf.service
 sleep 1
 sudo systemctl start telegraf.service
 
