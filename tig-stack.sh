@@ -478,14 +478,19 @@ docker compose --project-directory $HOME/.local/share/tig-stack/ up -d
 ####################################################################################################################################################################################################### Install Telegraf
 elif [[ "$SELECTION" == "3" ]]; then
 
+#######################################remove this block after all instances of telegraf in docker are removed
 # stop Telegraf docker if running
 docker compose --project-directory $HOME/.local/share/tig-stack/telegraf down
-
 # remove telegraf contaner
 docker remove telegraf
-
 #remove old folders and config files if they exist 
 sudo rm -rf $HOME/.local/share/tig-stack/telegraf
+
+# install telegraf and stop it for writing config file
+sudo apt update -y
+sudo apt install telegraf -y
+sleep 1
+sudo systemctl stop telegraf.service
 
 # enter the ipaddress and port of the influx instalation
 INFLUXDB_IP_PORT=$(whiptail --title "IP address & Port of InfluxDB2" --inputbox "\nIP Address & Port of Influxdb2" 8 60 IP_HOSTNAME:$INFLUXDB_PORT 3>&1 1>&2 2>&3)
@@ -500,13 +505,10 @@ exit 0
 fi
 
 ## enter hostname which will be used as inlux label to identify which system the telegraf data comes from
-HOSTNAME=$(whiptail --title "Hostname for identification in Influxdb" --inputbox "\nHostname for identification in Influxdb" 8 40 Hostname 3>&1 1>&2 2>&3)
+HOSTNAME=$(whiptail --title "Name for identification in Influxdb leave empty for hostname " --inputbox "\nName for identification in Influxdb" 8 40 3>&1 1>&2 2>&3)
 if [[ $? -eq 255 ]]; then
 exit 0
 fi
-
-#make Telegraf directory
-mkdir -p $HOME/.local/share/tig-stack/telegraf
 
 sleep 1
 
@@ -577,31 +579,7 @@ tee $HOME/.local/share/tig-stack/telegraf/telegraf.conf 2>&1 > /dev/null <<EOF
 EOF
 ################################################################################################################################################## End of Telegraf config
 
-# write docker compose config file
-
-tee $HOME/.local/share/tig-stack/telegraf/docker-compose.yaml 2>&1 > /dev/null <<EOF
-version: "3.8"
-services:
-
-  telegraf:
-    image: telegraf:1.29.5
-    container_name: telegraf
-    user: "1000:1000"
-    volumes:
-      # Make sure you create this local directory
-      - $HOME/.local/share/tig-stack/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf
-    restart: unless-stopped
-    networks:
-      - tig_network
-
-networks:
-  tig_network:
-    driver: bridge
-EOF
-
-
-#start docker contaner it will start in forground so you can see any errors just close terminal when satisfied
-docker compose --project-directory $HOME/.local/share/tig-stack/telegraf/ up -d
+sudo systemctl start telegraf.service
 
 ############################################################################################################################################## Exit
 elif [[ "$SELECTION" == "4" ]]; then
