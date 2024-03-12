@@ -510,7 +510,7 @@ fi
 sleep 1
 
 ############################################################################################################################################# create telegraf config file
-tee $HOME/.local/share/tig-stack/telegraf/telegraf.conf 2>&1 > /dev/null <<EOF
+tee /etc/telegraf/telegraf.conf 2>&1 > /dev/null <<EOF
 # Configuration for telegraf agent
 [agent]
   interval = "10s"
