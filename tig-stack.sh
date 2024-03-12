@@ -485,15 +485,6 @@ docker remove telegraf
 #remove old folders and config files if they exist 
 sudo rm -rf $HOME/.local/share/tig-stack/telegraf
 
-# install telegraf and stop it for writing config file
-
-curl -s https://repos.influxdata.com/influxdata-archive_compat.key > influxdata-archive_compat.key
-echo '393e8779c89ac8d958f81f942f9ad7fb82a25e133faddaf92e15b16e6ac9ce4c influxdata-archive_compat.key' | sha256sum -c && cat influxdata-archive_compat.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg > /dev/null
-echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https://repos.influxdata.com/debian stable main' | sudo tee /etc/apt/sources.list.d/influxdata.list
-sudo apt-get update && sudo apt-get install telegraf
-
-sleep 1
-sudo systemctl stop telegraf.service
 
 # enter the ipaddress and port of the influx instalation
 INFLUXDB_IP_PORT=$(whiptail --title "IP address & Port of InfluxDB2" --inputbox "\nIP Address & Port of Influxdb2" 8 60 IP_HOSTNAME:$INFLUXDB_PORT 3>&1 1>&2 2>&3)
@@ -507,10 +498,19 @@ if [[ $? -eq 255 ]]; then
 exit 0
 fi
 
+# install telegraf and stop it for writing config file
+
+curl -s https://repos.influxdata.com/influxdata-archive_compat.key > influxdata-archive_compat.key
+echo '393e8779c89ac8d958f81f942f9ad7fb82a25e133faddaf92e15b16e6ac9ce4c influxdata-archive_compat.key' | sha256sum -c && cat influxdata-archive_compat.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg > /dev/null
+echo 'deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https://repos.influxdata.com/debian stable main' | sudo tee /etc/apt/sources.list.d/influxdata.list
+sudo apt-get update && sudo apt-get install telegraf
+
+sleep 1
+sudo systemctl stop telegraf.service
 sleep 1
 
 ############################################################################################################################################# create telegraf config file
-tee /etc/telegraf/telegraf.conf 2>&1 > /dev/null <<EOF
+sudo tee /etc/telegraf/telegraf.conf 2>&1 > /dev/null <<EOF
 # Configuration for telegraf agent
 [agent]
   interval = "10s"
