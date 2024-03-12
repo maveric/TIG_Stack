@@ -473,7 +473,7 @@ EOF
 
 #start docker contaner it will start in forground so you can see any errors just close terminal when satisfied
 # it will restart automaticaly on boot
-docker compose --project-directory $HOME/.local/share/tig-stack/ up
+docker compose --project-directory $HOME/.local/share/tig-stack/ up -d
 
 ####################################################################################################################################################################################################### Install Telegraf
 elif [[ "$SELECTION" == "3" ]]; then
@@ -601,7 +601,7 @@ EOF
 
 
 #start docker contaner it will start in forground so you can see any errors just close terminal when satisfied
-docker compose --project-directory $HOME/.local/share/tig-stack/telegraf/ up
+docker compose --project-directory $HOME/.local/share/tig-stack/telegraf/ up -d
 
 ############################################################################################################################################## Exit
 elif [[ "$SELECTION" == "4" ]]; then
