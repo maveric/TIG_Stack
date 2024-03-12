@@ -566,13 +566,6 @@ sudo tee /etc/telegraf/telegraf.conf 2>&1 > /dev/null <<EOF
 
 [[inputs.net]]
   interfaces = ["eno*", "eth*", "ib*", "wl*"]
-
-# Monitors internet speed using speedtest.net service
-[[inputs.internet_speed]]
-  ## This plugin downloads many MB of data each time it is run. As such
-  ## consider setting a higher interval for this plugin to reduce the
-  ## demand on your internet connection.
-  interval = "15m"
 EOF
 ################################################################################################################################################## End of Telegraf config
 
