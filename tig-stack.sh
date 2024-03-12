@@ -503,12 +503,6 @@ if [[ $? -eq 255 ]]; then
 exit 0
 fi
 
-## enter hostname which will be used as inlux label to identify which system the telegraf data comes from
-HOSTNAME=$(whiptail --title "Name for identification in Influxdb leave empty for hostname " --inputbox "\nName for identification in Influxdb" 8 40 3>&1 1>&2 2>&3)
-if [[ $? -eq 255 ]]; then
-exit 0
-fi
-
 sleep 1
 
 ############################################################################################################################################# create telegraf config file
@@ -523,7 +517,7 @@ tee $HOME/.local/share/tig-stack/telegraf/telegraf.conf 2>&1 > /dev/null <<EOF
   flush_interval = "10s"
   flush_jitter = "0s"
   precision = ""
-  hostname = "$HOSTNAME"
+  hostname = ""
   omit_hostname = false
   
 [[outputs.influxdb_v2]]
