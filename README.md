@@ -42,6 +42,8 @@ Influx can be accesed on ```<IP Address>:8086```
 
 Grafana can be accesed on ```<IP Address>:3000```
 
+Influxdb default Token ```HYdrv1bCZhsvMhYOq6_wg4NGV2OI9HZch_gh57nquSdAhbjhLMUIeYnCCAoybgJrJlLXRHUnDnz2v-xR0hDt3Q==```
+
 # Connecting Grafana to influx
 
 1. Log into Grafana
