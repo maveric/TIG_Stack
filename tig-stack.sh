@@ -93,8 +93,7 @@ docker remove influxdb
 docker remove grafana
 
 #remove old folders and config files if they exists
-sudo rm -rf $HOME/.local/share/tig-stack/grafana \
-  $HOME/.local/share/tig-stack/influxdb
+sudo rm -rf $HOME/.local/share/tig-stack
 
 #make local directorys
 
