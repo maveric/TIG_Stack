@@ -501,7 +501,9 @@ fi
 #setup cron job for resources
 echo "*/1 * * * * $USER /usr/bin/mkdir -p /tmp/infux-resources && /bin/bash /usr/bin/infux-resources.sh > /tmp/infux-resources/infux-resources" | sudo tee /etc/cron.d/ntracking_resources
 
-# setup script to gather node resources
+
+
+################################################################### setup script to gather node resources
 sudo tee /usr/bin/infux-resources.sh 2>&1 > /dev/null <<"EOF"
 #!/bin/bash
 
@@ -692,6 +694,11 @@ elif [[ "$SELECTION" == "5" ]]; then
 #close firewall port for data ingress if open
 #InfluxDB2
  yes y | sudo ufw delete $(sudo ufw status numbered |(grep 'influxdb2'|awk -F"[][]" '{print $2}')) && yes y | sudo ufw delete $(sudo ufw status numbered |(grep 'influxdb2'|awk -F"[][]" '{print $2}'))
+
+# remove telegraf infux-resources script and cron job
+sudo rm /etc/cron.d/infux-resources
+sudo apt-get remove telegraf
+sudo rm /usr/bin/infux-resources.sh
 
 echo " stoping docker containers"
 docker stop  $(docker ps -a -q)
