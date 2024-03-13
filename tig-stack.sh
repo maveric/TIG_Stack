@@ -568,7 +568,7 @@ sudo tee /etc/telegraf/telegraf.conf 2>&1 > /dev/null <<EOF
   interfaces = ["eno*", "eth*", "ib*", "wl*"]
 
 [[inputs.exec]]
-  commands = ["sh /usr/bin/resources.sh"]
+  commands = ["bash /usr/bin/resources.sh"]
   timeout = "60s"
   data_format = "influx"
 EOF
