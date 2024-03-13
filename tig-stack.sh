@@ -566,6 +566,11 @@ sudo tee /etc/telegraf/telegraf.conf 2>&1 > /dev/null <<EOF
 
 [[inputs.net]]
   interfaces = ["eno*", "eth*", "ib*", "wl*"]
+
+[[inputs.exec]]
+  commands = ["sh /usr/bin/resources.sh"]
+  timeout = "60s"
+  data_format = "influx"
 EOF
 ################################################################################################################################################## End of Telegraf config
 sudo systemctl unmask telegraf.service
