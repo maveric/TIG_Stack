@@ -673,9 +673,8 @@ sudo tee /etc/telegraf/telegraf.conf 2>&1 > /dev/null <<EOF
 [[inputs.net]]
   interfaces = ["eno*", "eth*", "ib*", "wl*"]
 
-[[inputs.exec]]
-  commands = ["bash /usr/bin/resources.sh"]
-  timeout = "60s"
+[[inputs.tail]]
+  files = ["/tmp/infux-resources/infux-resources"]
   data_format = "influx"
 EOF
 ################################################################################################################################################## End of Telegraf config
