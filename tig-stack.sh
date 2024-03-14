@@ -598,7 +598,7 @@ fi
   if [[ -d "$record_store_dirs" ]]; then
     records=$(find "$record_store_dirs" -type f | wc -l)
     records=$records
-    disk=$(du -sh "$record_store_dirs" | cut -f1)
+    disk=$(echo "scale=0;("$(du -s "$record_store_dirs" | cut -f1)")/1024" | bc)
   else
     #echo "$dir_name does not contain record_store"
         records=0
@@ -621,6 +621,7 @@ echo "nodes latency=$latency"
     echo "$node_name:${node_numbers[$node_name]}"
   done
 } > "$registry_file"
+
 EOF
 
 sudo chmod u+x /usr/bin/influx-resources.sh
