@@ -511,7 +511,7 @@ export PATH=$PATH:$HOME/.local/bin
 
 registry_file="$HOME/.local/share/safe/nodes/node_registry.conf"
 base_dirs=("$HOME/.local/share/safe/node" "/var/safenode-manager/services")
-cli_dir=$HOME/.local/bin						
+cli_dir=$HOME/.local/bin
 
 declare -A dir_pid
 declare -A dir_peer_ids
