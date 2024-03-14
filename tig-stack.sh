@@ -510,8 +510,7 @@ sudo tee /usr/bin/influx-resources.sh 2>&1 > /dev/null <<"EOF"
 export PATH=$PATH:$HOME/.local/bin
 
 registry_file="$HOME/.local/share/safe/node_registry.conf"
-base_dirs=("$HOME/.local/share/safe/node" "/var/safenode-manager/services")
-cli_dir=$HOME/.local/bin
+base_dirs=("${HOME}/.local/share/safe/node" "/var/safenode-manager/services")
 
 declare -A dir_pid
 declare -A dir_peer_ids
@@ -551,7 +550,7 @@ for base_dir in "${base_dirs[@]}"; do
 
             # Assign a new number to unregistered nodes
             [[ -z ${node_numbers["$dir_name"]} ]] && node_numbers["$dir_name"]=$((++max_number))
-            
+
             if [[ "$base_dir" == "/var/safenode-manager/services" ]]; then
                 # Fetch the Peer ID by parsing `safenode-manager status --details`
                 peer_id=$(safenode-manager status --details | grep -A 5 "$dir_name - RUNNING" | grep "Peer ID:" | awk '{print $3}')
@@ -569,12 +568,12 @@ for dir_name in "${sorted_dirs[@]}"; do
 #  echo "Global (UTC) Timestamp: $(date +%s)"
 Number=${node_numbers[$dir_name]}
 #  echo "Node: $dir_name"
-ID="$dir_name"			  
+ID="$dir_name"
 #  echo "PID: ${dir_pid[$dir_name]}"
-PID=${dir_pid[$dir_name]}						 
+PID=${dir_pid[$dir_name]}
 if [[ -n "${dir_peer_ids[$dir_name]}" ]]; then
 #  echo "Peer ID: ${dir_peer_ids[$dir_name]}"
-ID="${dir_peer_ids[$dir_name]}"							   
+ID="${dir_peer_ids[$dir_name]}"
 fi
 
 # Retrieve process information
@@ -595,19 +594,19 @@ fi
 
 
   # Check for record store and report its details
-  record_store_dir="$base_dir/$dir_name/record_store"
-  if [[ -d "$record_store_dir" ]]; then
-    records=$(find "$record_store_dir" -type f | wc -l)
+  record_store_dirs="$base_dirs/$dir_name/record_store"
+  if [[ -d "$record_store_dirs" ]]; then
+    records=$(find "$record_store_dirs" -type f | wc -l)
     records=$records
-    disk=$(du -sh "$record_store_dir" | cut -f1)
+    disk=$(du -sh "$record_store_dirs" | cut -f1)
   else
     #echo "$dir_name does not contain record_store"
-	records=0
-	disk=0.0		  
+        records=0
+        disk=0.0
   fi
 
   # Retrieve and display rewards balance
-  rewards_balance=$($cli_dir/safe wallet balance --peer-id="$dir_name" | grep -oP '(?<=: )\d+\.\d+')
+rewards_balance=$(${HOME}/.local/bin/safe wallet balance --peer-id="$dir_name" | grep -oP '(?<=: )\d+\.\d+')
 #  echo "Rewards balance: $rewards_balance"
 
 
