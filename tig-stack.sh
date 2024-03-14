@@ -614,7 +614,7 @@ fi
 echo "nodes,number=$Number,id=$ID cpu=$cpu_usage,mem=$mem_used,status=$status,pid=$PID"i",records=$records"i",disk=$disk,rewards=$rewards_balance"
 done
 
-echo "nodes,latency=$latency"
+echo "nodes latency=$latency"
 
 # Update the registry file if new nodes were added
 {
