@@ -698,7 +698,7 @@ sudo tee /etc/telegraf/telegraf.conf 2>&1 > /dev/null <<EOF
   interfaces = ["enp*", "eno*", "eth*", "ib*", "wl*"]
 
 [[inputs.tail]]
-  files = ["/tmp/infux-resources/infux-resources"]
+  files = ["/tmp/influx-resources/influx-resources"]
   data_format = "influx"
 EOF
 ################################################################################################################################################## End of Telegraf config
