@@ -499,7 +499,7 @@ exit 0
 fi
 
 #setup cron job for resources
-echo "*/1 * * * * $USER /usr/bin/mkdir -p /tmp/influx-resources && /bin/bash /usr/bin/infux-resources.sh > /tmp/infux-resources/infux-resources" | sudo tee /etc/cron.d/influx_resources
+echo "*/1 * * * * $USER /usr/bin/mkdir -p /tmp/influx-resources && /bin/bash /usr/bin/influx-resources.sh > /tmp/influx-resources/influx-resources" | sudo tee /etc/cron.d/influx_resources
 
 
 
