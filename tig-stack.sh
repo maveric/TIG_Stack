@@ -499,12 +499,12 @@ exit 0
 fi
 
 #setup cron job for resources
-echo "*/1 * * * * $USER /usr/bin/mkdir -p /tmp/infux-resources && /bin/bash /usr/bin/infux-resources.sh > /tmp/infux-resources/infux-resources" | sudo tee /etc/cron.d/ntracking_resources
+echo "*/1 * * * * $USER /usr/bin/mkdir -p /tmp/influx-resources && /bin/bash /usr/bin/infux-resources.sh > /tmp/infux-resources/infux-resources" | sudo tee /etc/cron.d/ntracking_resources
 
 
 
 ################################################################### setup script to gather node resources
-sudo tee /usr/bin/infux-resources.sh 2>&1 > /dev/null <<"EOF"
+sudo tee /usr/bin/influx-resources.sh 2>&1 > /dev/null <<"EOF"
 #!/bin/bash
 
 export PATH=$PATH:$HOME/.local/bin
