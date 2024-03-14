@@ -499,7 +499,7 @@ exit 0
 fi
 
 #setup cron job for resources
-echo "*/1 * * * * $USER /usr/bin/mkdir -p /tmp/influx-resources && /bin/bash /usr/bin/influx-resources.sh > /tmp/influx-resources/influx-resources" | sudo tee /etc/cron.d/influx_resources
+echo "*/10 * * * * $USER /usr/bin/mkdir -p /tmp/influx-resources && /bin/bash /usr/bin/influx-resources.sh > /tmp/influx-resources/influx-resources" | sudo tee /etc/cron.d/influx_resources
 
 
 
@@ -643,7 +643,7 @@ sleep 1
 sudo tee /etc/telegraf/telegraf.conf 2>&1 > /dev/null <<EOF
 # Configuration for telegraf agent
 [agent]
-  interval = "10s"
+  interval = "30s"
   round_interval = true
   metric_batch_size = 1000
   metric_buffer_limit = 10000
