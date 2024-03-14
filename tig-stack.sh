@@ -509,8 +509,9 @@ sudo tee /usr/bin/influx-resources.sh 2>&1 > /dev/null <<"EOF"
 
 export PATH=$PATH:$HOME/.local/bin
 
+registry_file="$HOME/.local/share/safe/nodes/node_registry.conf"
 base_dirs=("$HOME/.local/share/safe/node" "/var/safenode-manager/services")
-cli_dir=$HOME/.local/bin
+cli_dir=$HOME/.local/bin						
 
 declare -A dir_pid
 declare -A dir_peer_ids
@@ -519,6 +520,20 @@ declare -A dir_creation_times
 
 # Latency
 latency=$(ping -c 4 8.8.8.8 | tail -1| awk '{print $4}' | cut -d '/' -f 2)
+# Ensure the registry file exists with correct permissions
+if [[ ! -f $registry_file ]]; then
+    touch "$registry_file"
+    chmod 644 "$registry_file"
+    if [[ $? -ne 0 ]]; then
+        echo "Error: Failed to set permissions on $registry_file. Check your user permissions."
+        exit 1
+    fi
+fi
+
+# Load node numbers from the registry
+while IFS=: read -r node_name number; do
+    node_numbers["$node_name"]=$number
+done < "$registry_file"
 
 # Identify the highest node number in the registry
 max_number=-1
@@ -552,14 +567,14 @@ for dir_name in "${sorted_dirs[@]}"; do
 
 #  echo "------------------------------------------"
 #  echo "Global (UTC) Timestamp: $(date +%s)"
-#  echo "Number: ${node_numbers[$dir_name]}"
+Number=${node_numbers[$dir_name]}
 #  echo "Node: $dir_name"
-ID="$dir_name"
+ID="$dir_name"			  
 #  echo "PID: ${dir_pid[$dir_name]}"
-PID=${dir_pid[$dir_name]}
+PID=${dir_pid[$dir_name]}						 
 if [[ -n "${dir_peer_ids[$dir_name]}" ]]; then
 #  echo "Peer ID: ${dir_peer_ids[$dir_name]}"
-ID="${dir_peer_ids[$dir_name]}"
+ID="${dir_peer_ids[$dir_name]}"							   
 fi
 
 # Retrieve process information
@@ -588,7 +603,7 @@ fi
   else
     #echo "$dir_name does not contain record_store"
 	records=0
-	disk=0.0
+	disk=0.0		  
   fi
 
   # Retrieve and display rewards balance
@@ -596,11 +611,20 @@ fi
 #  echo "Rewards balance: $rewards_balance"
 
 
-echo "nodes,id=$ID cpu=$cpu_usage,mem=$mem_used,status=$status,pid=$PID"i",records=$records"i",disk=$disk,rewards=$rewards_balance,latency=$latency"
+echo "nodes,number=$Number,id=$ID cpu=$cpu_usage,mem=$mem_used,status=$status,pid=$PID"i",records=$records"i",disk=$disk,rewards=$rewards_balance"
+done
 
- done
+echo "nodes,latency=$latency"
 
+# Update the registry file if new nodes were added
+{
+  for node_name in "${!node_numbers[@]}"; do
+    echo "$node_name:${node_numbers[$node_name]}"
+  done
+} > "$registry_file"
 EOF
+
+sudo chmod u+x /usr/bin/influx-resources.sh
 #####################################
 
 
