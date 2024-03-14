@@ -484,7 +484,7 @@ docker compose --project-directory $HOME/.local/share/tig-stack/telegraf down
 docker remove telegraf
 #remove old folders and config files if they exist 
 sudo rm -rf $HOME/.local/share/tig-stack/telegraf
-
+rm -rf /tmp/influx-resources
 
 # enter the ipaddress and port of the influx instalation
 INFLUXDB_IP_PORT=$(whiptail --title "IP address & Port of InfluxDB2" --inputbox "\nIP Address & Port of Influxdb2" 8 60 IP_HOSTNAME:$INFLUXDB_PORT 3>&1 1>&2 2>&3)
@@ -509,7 +509,7 @@ sudo tee /usr/bin/influx-resources.sh 2>&1 > /dev/null <<"EOF"
 
 export PATH=$PATH:$HOME/.local/bin
 
-registry_file="$HOME/.local/share/safe/nodes/node_registry.conf"
+registry_file="$HOME/.local/share/safe/node_registry.conf"
 base_dirs=("$HOME/.local/share/safe/node" "/var/safenode-manager/services")
 cli_dir=$HOME/.local/bin
 
