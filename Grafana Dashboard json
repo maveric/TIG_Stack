@@ -1,4 +1,47 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_INFLUXDB",
+      "label": "influxdb",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "influxdb",
+      "pluginName": "InfluxDB"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "gauge",
+      "name": "Gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "10.4.0"
+    },
+    {
+      "type": "datasource",
+      "id": "influxdb",
+      "name": "InfluxDB",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -26,7 +69,7 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 15650,
   "graphTooltip": 1,
-  "id": 4,
+  "id": null,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -59,7 +102,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": ""
+        "uid": "${DS_INFLUXDB}"
       },
       "fieldConfig": {
         "defaults": {
@@ -114,7 +157,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": ""
+            "uid": "${DS_INFLUXDB}"
           },
           "groupBy": [
             {
@@ -159,7 +202,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": ""
+        "uid": "${DS_INFLUXDB}"
       },
       "fieldConfig": {
         "defaults": {
@@ -219,7 +262,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": ""
+            "uid": "${DS_INFLUXDB}"
           },
           "groupBy": [
             {
@@ -264,7 +307,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": ""
+        "uid": "${DS_INFLUXDB}"
       },
       "fieldConfig": {
         "defaults": {
@@ -325,7 +368,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": ""
+            "uid": "${DS_INFLUXDB}"
           },
           "groupBy": [
             {
@@ -370,7 +413,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": ""
+        "uid": "${DS_INFLUXDB}"
       },
       "fieldConfig": {
         "defaults": {
@@ -431,7 +474,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": ""
+            "uid": "${DS_INFLUXDB}"
           },
           "groupBy": [
             {
@@ -476,7 +519,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": ""
+        "uid": "${DS_INFLUXDB}"
       },
       "fieldConfig": {
         "defaults": {
@@ -537,7 +580,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": ""
+            "uid": "${DS_INFLUXDB}"
           },
           "groupBy": [
             {
@@ -582,7 +625,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": ""
+        "uid": "${DS_INFLUXDB}"
       },
       "fieldConfig": {
         "defaults": {
@@ -670,7 +713,7 @@
           "alias": "$tag_host: $tag_interface: $col",
           "datasource": {
             "type": "influxdb",
-            "uid": ""
+            "uid": "${DS_INFLUXDB}"
           },
           "dsType": "influxdb",
           "function": "derivative",
@@ -724,7 +767,7 @@
           "alias": "$tag_host: $tag_interface: $col",
           "datasource": {
             "type": "influxdb",
-            "uid": ""
+            "uid": "${DS_INFLUXDB}"
           },
           "dsType": "influxdb",
           "function": "derivative",
@@ -781,7 +824,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": ""
+        "uid": "${DS_INFLUXDB}"
       },
       "fieldConfig": {
         "defaults": {
@@ -836,7 +879,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": ""
+            "uid": "${DS_INFLUXDB}"
           },
           "groupBy": [
             {
@@ -881,7 +924,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": ""
+        "uid": "${DS_INFLUXDB}"
       },
       "fieldConfig": {
         "defaults": {
@@ -941,7 +984,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": ""
+            "uid": "${DS_INFLUXDB}"
           },
           "groupBy": [
             {
@@ -986,7 +1029,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": ""
+        "uid": "${DS_INFLUXDB}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1047,7 +1090,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": ""
+            "uid": "${DS_INFLUXDB}"
           },
           "groupBy": [
             {
@@ -1092,7 +1135,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": ""
+        "uid": "${DS_INFLUXDB}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1152,7 +1195,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": ""
+            "uid": "${DS_INFLUXDB}"
           },
           "groupBy": [
             {
@@ -1197,7 +1240,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": ""
+        "uid": "${DS_INFLUXDB}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1257,7 +1300,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": ""
+            "uid": "${DS_INFLUXDB}"
           },
           "groupBy": [
             {
@@ -1302,7 +1345,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": ""
+        "uid": "${DS_INFLUXDB}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1389,7 +1432,7 @@
           "alias": "$tag_host: $col",
           "datasource": {
             "type": "influxdb",
-            "uid": ""
+            "uid": "${DS_INFLUXDB}"
           },
           "dsType": "influxdb",
           "function": "mean",
@@ -1440,7 +1483,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": ""
+        "uid": "${DS_INFLUXDB}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1530,7 +1573,7 @@
           "alias": "$tag_host: $col",
           "datasource": {
             "type": "influxdb",
-            "uid": ""
+            "uid": "${DS_INFLUXDB}"
           },
           "dsType": "influxdb",
           "function": "mean",
@@ -1579,7 +1622,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": ""
+        "uid": "${DS_INFLUXDB}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1692,7 +1735,7 @@
           "alias": "$tag_host: $col",
           "datasource": {
             "type": "influxdb",
-            "uid": ""
+            "uid": "${DS_INFLUXDB}"
           },
           "dsType": "influxdb",
           "function": "mean",
@@ -1743,7 +1786,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": ""
+        "uid": "${DS_INFLUXDB}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1856,7 +1899,7 @@
           "alias": "$tag_host: $tag_path : $col",
           "datasource": {
             "type": "influxdb",
-            "uid": ""
+            "uid": "${DS_INFLUXDB}"
           },
           "dsType": "influxdb",
           "function": "mean",
@@ -1913,7 +1956,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": ""
+        "uid": "${DS_INFLUXDB}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2001,7 +2044,7 @@
           "alias": "$tag_host: $tag_name: $col",
           "datasource": {
             "type": "influxdb",
-            "uid": ""
+            "uid": "${DS_INFLUXDB}"
           },
           "dsType": "influxdb",
           "function": "mean",
@@ -2055,7 +2098,7 @@
           "alias": "$tag_host: $tag_name: $col",
           "datasource": {
             "type": "influxdb",
-            "uid": ""
+            "uid": "${DS_INFLUXDB}"
           },
           "dsType": "influxdb",
           "function": "mean",
@@ -2112,7 +2155,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": ""
+        "uid": "${DS_INFLUXDB}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2200,7 +2243,7 @@
           "alias": "$tag_host: $tag_name: $col",
           "datasource": {
             "type": "influxdb",
-            "uid": ""
+            "uid": "${DS_INFLUXDB}"
           },
           "dsType": "influxdb",
           "function": "mean",
@@ -2254,7 +2297,7 @@
           "alias": "$tag_host: $tag_name: $col",
           "datasource": {
             "type": "influxdb",
-            "uid": ""
+            "uid": "${DS_INFLUXDB}"
           },
           "dsType": "influxdb",
           "function": "mean",
@@ -2311,7 +2354,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": ""
+        "uid": "${DS_INFLUXDB}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2399,7 +2442,7 @@
           "alias": "$tag_host: $tag_name: $col",
           "datasource": {
             "type": "influxdb",
-            "uid": ""
+            "uid": "${DS_INFLUXDB}"
           },
           "dsType": "influxdb",
           "function": "mean",
@@ -2453,7 +2496,7 @@
           "alias": "$tag_host: $tag_name: $col",
           "datasource": {
             "type": "influxdb",
-            "uid": ""
+            "uid": "${DS_INFLUXDB}"
           },
           "dsType": "influxdb",
           "function": "mean",
@@ -2506,6 +2549,373 @@
       ],
       "title": "Disk I/O bytes",
       "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 5,
+        "x": 0,
+        "y": 34
+      },
+      "id": 65091,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "query": "from(bucket: \"telegraf\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"nodes\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"latency\")\r\n  |> filter(fn: (r) => r.host == \"${host}\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
+          "refId": "A"
+        }
+      ],
+      "title": "Latency",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "decmbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 24,
+        "x": 0,
+        "y": 41
+      },
+      "id": 65088,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "query": "from(bucket: \"telegraf\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"nodes\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"mem\")\r\n  |> filter(fn: (r) => r.host == \"${host}\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
+          "refId": "A"
+        }
+      ],
+      "title": "Node Memory",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "decmbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 24,
+        "x": 0,
+        "y": 53
+      },
+      "id": 65089,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "query": "  from(bucket: \"telegraf\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"nodes\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"disk\")\r\n  |> filter(fn: (r) => r.host == \"${host}\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
+          "refId": "A"
+        }
+      ],
+      "title": "Node Disk Usage",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "${DS_INFLUXDB}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 24,
+        "x": 0,
+        "y": 65
+      },
+      "id": 65090,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "${DS_INFLUXDB}"
+          },
+          "query": "  from(bucket: \"telegraf\")\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_measurement\"] == \"nodes\")\r\n  |> filter(fn: (r) => r[\"_field\"] == \"rewards\")\r\n  |> filter(fn: (r) => r.host == \"${host}\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
+          "refId": "A"
+        }
+      ],
+      "title": "Node earnings in Dirvine's",
+      "type": "timeseries"
     }
   ],
   "refresh": "",
@@ -2518,14 +2928,10 @@
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": false,
-          "text": "telegraf",
-          "value": "telegraf"
-        },
+        "current": {},
         "datasource": {
           "type": "influxdb",
-          "uid": ""
+          "uid": "${DS_INFLUXDB}"
         },
         "definition": "buckets()",
         "hide": 2,
@@ -2541,14 +2947,10 @@
         "type": "query"
       },
       {
-        "current": {
-          "selected": true,
-          "text": "s04",
-          "value": "s04"
-        },
+        "current": {},
         "datasource": {
           "type": "influxdb",
-          "uid": ""
+          "uid": "${DS_INFLUXDB}"
         },
         "definition": "import \"influxdata/influxdb/schema\"\n\nschema.tagValues(bucket: \"${bucket}\", tag: \"host\")",
         "hide": 0,
@@ -2573,8 +2975,8 @@
         "auto_min": "30s",
         "current": {
           "selected": false,
-          "text": "auto",
-          "value": "$__auto_interval_inter"
+          "text": "10m",
+          "value": "10m"
         },
         "hide": 0,
         "includeAll": false,
@@ -2583,7 +2985,7 @@
         "name": "inter",
         "options": [
           {
-            "selected": true,
+            "selected": false,
             "text": "auto",
             "value": "$__auto_interval_inter"
           },
@@ -2618,7 +3020,7 @@
             "value": "1m"
           },
           {
-            "selected": false,
+            "selected": true,
             "text": "10m",
             "value": "10m"
           },
@@ -2713,6 +3115,6 @@
   "timezone": "browser",
   "title": "Safe Dashboard",
   "uid": "7JdIfTn9z",
-  "version": 19,
+  "version": 7,
   "weekStart": ""
 }
