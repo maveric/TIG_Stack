@@ -506,11 +506,14 @@ echo "*/5 * * * * $USER /usr/bin/mkdir -p /tmp/influx-resources && /bin/bash /us
 ################################################################### setup script to gather node resources
 sudo tee /usr/bin/influx-resources.sh 2>&1 > /dev/null <<"EOF"
 #!/bin/bash
+#!/bin/bash
 
 export PATH=$PATH:$HOME/.local/bin
 
 registry_file="$HOME/.local/share/safe/node_registry.conf"
 base_dirs=("${HOME}/.local/share/safe/node" "/var/safenode-manager/services")
+
+influx_time=$(date +%s%N)
 
 declare -A dir_pid
 declare -A dir_peer_ids
@@ -610,7 +613,7 @@ rewards_balance=$(${HOME}/.local/bin/safe wallet balance --peer-id="$dir_name" |
 #  echo "Rewards balance: $rewards_balance"
 
 
-echo "nodes,number=$Number,id=$ID cpu=$cpu_usage,mem=$mem_used,status=$status,pid=$PID"i",records=$records"i",disk=$disk,rewards=$rewards_balance"
+echo "nodes,number=$Number,id=$ID cpu=$cpu_usage,mem=$mem_used,status=$status,pid=$PID"i",records=$records"i",disk=$disk,rewards=$rewards_balance $influx_time"
 done
 
 echo "nodes latency=$latency"
@@ -621,6 +624,27 @@ echo "nodes latency=$latency"
     echo "$node_name:${node_numbers[$node_name]}"
   done
 } > "$registry_file"
+
+
+######################################################
+# coin gecko gets upset with to many requests this atempts to get the exchange every 15 min
+# https://www.coingecko.com/api/documentation
+######################################################
+time_min=$(date +"%M")
+
+if [ $time_min == 0 ] || [ $time_min == 15 ] || [ $time_min == 30 ] || [ $time_min == 45 ]
+then
+
+coingecko=$(curl -s -X 'GET' 'https://api.coingecko.com/api/v3/simple/price?ids=maidsafecoin&vs_currencies=gbp%2Cusd&include_market_cap=true' -H 'accept: application/json')
+exchange_rate_gbp=$(awk -F'[:,]' '{print $3}' <<< $coingecko)
+market_cap_gbp=$(awk -F'[:,]' '{print $5}' <<< $coingecko)
+exchange_rate_usd=$(awk -F'[:,]' '{print $7}' <<< $coingecko)
+market_cap_usd=$(awk -F'[:}]' '{print $6}' <<< $coingecko)
+
+echo "coingecko,curency=gbp exchange_rate=$exchange_rate_gbp,marketcap=$market_cap_gbp  $influx_time"
+echo "coingecko,curency=usd exchange_rate=$exchange_rate_usd,marketcap=$market_cap_usd  $influx_time"
+
+fi
 
 EOF
 
