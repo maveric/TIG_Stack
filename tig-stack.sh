@@ -632,7 +632,8 @@ echo "nodes latency=$latency"
 ######################################################
 time_min=$(date +"%M")
 
-if [ $time_min == 0 ] || [ $time_min == 15 ] || [ $time_min == 30 ] || [ $time_min == 45 ]
+# execute script every 15 min if the tig stack folder is present
+if [ $time_min == 0 ] || [ $time_min == 15 ] || [ $time_min == 30 ] || [ $time_min == 45 ] && [ -d "$HOME/.local/share/tig-stack" ]
 then
 
 coingecko=$(curl -s -X 'GET' 'https://api.coingecko.com/api/v3/simple/price?ids=maidsafecoin&vs_currencies=gbp%2Cusd&include_market_cap=true' -H 'accept: application/json')
