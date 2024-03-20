@@ -503,13 +503,17 @@ echo "*/5 * * * * $USER /usr/bin/mkdir -p /tmp/influx-resources && /bin/bash /us
 
 
 
-################################################################### setup script to gather node resources
-sudo tee /usr/bin/influx-resources.sh 2>&1 > /dev/null <<"EOF"
+################################################################### download script to gather node resources
 
+#remove old script if exists
+sudo rm /usr/bin/influx-resources.sh*
 
-EOF
+# download latest script from git hub
+sudo wget -P /usr/bin  https://raw.githubusercontent.com/safenetforum-community/TIG_Stack/main/influx-resources.sh
 
+#make executable
 sudo chmod u+x /usr/bin/influx-resources.sh
+
 #####################################
 
 
