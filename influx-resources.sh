@@ -2,7 +2,7 @@
 
 export PATH=$PATH:$HOME/.local/bin
 
-registry_file="$HOME/.local/share/safe/node_registry.conf"
+#registry_file="$HOME/.local/share/safe/node_registry.conf"
 base_dirs=("${HOME}/.local/share/safe/node" "/var/safenode-manager/services")
 
 # influx db and grafana need data that is to be worked with to have the same time stamp this rounds time to the nearest 100 seconds to
@@ -16,15 +16,16 @@ declare -A dir_creation_times
 
 # Latency
 latency=$(ping -c 4 8.8.8.8 | tail -1| awk '{print $4}' | cut -d '/' -f 2)
-# Ensure the registry file exists with correct permissions
-if [[ ! -f $registry_file ]]; then
-    touch "$registry_file"
-    chmod 644 "$registry_file"
-    if [[ $? -ne 0 ]]; then
-        echo "Error: Failed to set permissions on $registry_file. Check your user permissions."
-        exit 1
-    fi
-fi
+
+## Ensure the registry file exists with correct permissions
+#if [[ ! -f $registry_file ]]; then
+#    touch "$registry_file"
+#    chmod 644 "$registry_file"
+#    if [[ $? -ne 0 ]]; then
+#        echo "Error: Failed to set permissions on $registry_file. Check your user permissions."
+#        exit 1
+#    fi
+#fi
 
 ## Load node numbers from the registry
 #while IFS=: read -r node_name number; do
