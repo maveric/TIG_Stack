@@ -110,7 +110,7 @@ rewards_balance=$(${HOME}/.local/bin/safe wallet balance --peer-id="$dir_name" |
 echo "nodes,number=$Number,id=$ID cpu=$cpu_usage,mem=$mem_used,status=$status,pid=$PID"i",records=$records"i",disk=$disk,rewards=$rewards_balance $influx_time"
 done
 
-echo "nodes latency=$latency"
+echo "nodes latency=$latency $influx_time"
 
 # Update the registry file if new nodes were added
 {
