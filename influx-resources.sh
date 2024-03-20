@@ -26,16 +26,16 @@ if [[ ! -f $registry_file ]]; then
     fi
 fi
 
-# Load node numbers from the registry
-while IFS=: read -r node_name number; do
-    node_numbers["$node_name"]=$number
-done < "$registry_file"
+## Load node numbers from the registry
+#while IFS=: read -r node_name number; do
+#    node_numbers["$node_name"]=$number
+##done < "$registry_file"
 
-# Identify the highest node number in the registry
-max_number=-1
-for number in "${node_numbers[@]}"; do
-  ((number > max_number)) && max_number=$number
-done
+## Identify the highest node number in the registry
+#max_number=-1
+#for number in "${node_numbers[@]}"; do
+#  ((number > max_number)) && max_number=$number
+#done
 
 # Discover nodes, capture their details, and conditionally fetch Peer IDs
 for base_dir in "${base_dirs[@]}"; do
@@ -107,17 +107,17 @@ rewards_balance=$(${HOME}/.local/bin/safe wallet balance --peer-id="$dir_name" |
 #  echo "Rewards balance: $rewards_balance"
 
 
-echo "nodes,number=$Number,id=$ID cpu=$cpu_usage,mem=$mem_used,status=$status,pid=$PID"i",records=$records"i",disk=$disk,rewards=$rewards_balance $influx_time"
+echo "nodes,id=$ID cpu=$cpu_usage,mem=$mem_used,status=$status,pid=$PID"i",records=$records"i",disk=$disk,rewards=$rewards_balance $influx_time"
 done
 
 echo "nodes latency=$latency $influx_time"
 
-# Update the registry file if new nodes were added
-{
-  for node_name in "${!node_numbers[@]}"; do
-    echo "$node_name:${node_numbers[$node_name]}"
-  done
-} > "$registry_file"
+## Update the registry file if new nodes were added
+#{
+#  for node_name in "${!node_numbers[@]}"; do
+#    echo "$node_name:${node_numbers[$node_name]}"
+#  done
+#} > "$registry_file"
 
 
 ######################################################
