@@ -513,7 +513,9 @@ export PATH=$PATH:$HOME/.local/bin
 registry_file="$HOME/.local/share/safe/node_registry.conf"
 base_dirs=("${HOME}/.local/share/safe/node" "/var/safenode-manager/services")
 
-influx_time=$(date +%s%N)
+# influx db and grafana need data that is to be worked with to have the same time stamp this rounds time to the nearest 100 seconds to
+# attempt to keep all machines in sync for time purposes
+influx_time="$(echo "$(date +%s%N)" | awk '{printf "%d0000000000\n", $0 / 10000000000}')"
 
 declare -A dir_pid
 declare -A dir_peer_ids
