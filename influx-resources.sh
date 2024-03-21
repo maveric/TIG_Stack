@@ -9,6 +9,9 @@ base_dirs=("${HOME}/.local/share/safe/node" "/var/safenode-manager/services")
 # attempt to keep all machines in sync for time purposes
 influx_time="$(echo "$(date +%s%N)" | awk '{printf "%d0000000000\n", $0 / 10000000000}')"
 
+total_disk=0
+total_rewards_balance=0
+
 declare -A dir_pid
 declare -A dir_peer_ids
 declare -A node_numbers
@@ -109,7 +112,16 @@ rewards_balance=$(${HOME}/.local/bin/safe wallet balance --peer-id="$dir_name" |
 
 
 echo "nodes,id=$ID cpu=$cpu_usage,mem=$mem_used,status=$status,pid=$PID"i",records=$records"i",disk=$disk,rewards=$rewards_balance $influx_time"
+
+
+total_disk=`echo $total_disk+$disk | bc`
+total_rewards_balance=`echo $total_rewards_balance+$rewards_balance | bc`
+
+
 done
+
+echo "nodes,id=total total_disk=$total_disk,total_rewards=$total_rewards_balance $influx_time"
+
 
 echo "nodes latency=$latency $influx_time"
 
