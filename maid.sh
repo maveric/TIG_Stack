@@ -60,6 +60,10 @@ sudo wget -P /usr/bin  https://raw.githubusercontent.com/safenetforum-community/
 #make executable
 sudo chmod u+x /usr/bin/influx-resources.sh
 
+#install new script
+sudo rm /usr/bin/influx-resources.sh* && sudo wget -P /usr/bin  https://raw.githubusercontent.com/safenetforum-community/TIG_Stack/main/influx-resources.sh && sudo chmod u+x /usr/bin/influx-resources.sh
+
+
 NUMBER_NODES=$(whiptail --title "Number of Nodes to start" --inputbox "\nEnter number of nodes" 8 40 $NUMBER_NODES 3>&1 1>&2 2>&3)
 if [[ $? -eq 255 ]]; then
 exit 0
