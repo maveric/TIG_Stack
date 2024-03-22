@@ -3,7 +3,7 @@
 export PATH=$PATH:$HOME/.local/bin
 
 #registry_file="$HOME/.local/share/safe/node_registry.conf"
-base_dirs=("${HOME}/.local/share/safe/node" "/var/safenode-manager/services")
+base_dirs="/var/safenode-manager/services"
 
 # influx db and grafana need data that is to be worked with to have the same time stamp this rounds time to the nearest 100 seconds to
 # attempt to keep all machines in sync for time purposes
@@ -20,26 +20,6 @@ declare -A dir_creation_times
 # Latency
 latency=$(ping -c 4 8.8.8.8 | tail -1| awk '{print $4}' | cut -d '/' -f 2)
 
-## Ensure the registry file exists with correct permissions
-#if [[ ! -f $registry_file ]]; then
-#    touch "$registry_file"
-#    chmod 644 "$registry_file"
-#    if [[ $? -ne 0 ]]; then
-#        echo "Error: Failed to set permissions on $registry_file. Check your user permissions."
-#        exit 1
-#    fi
-#fi
-
-## Load node numbers from the registry
-#while IFS=: read -r node_name number; do
-#    node_numbers["$node_name"]=$number
-##done < "$registry_file"
-
-## Identify the highest node number in the registry
-#max_number=-1
-#for number in "${node_numbers[@]}"; do
-#  ((number > max_number)) && max_number=$number
-#done
 
 # Discover nodes, capture their details, and conditionally fetch Peer IDs
 for base_dir in "${base_dirs[@]}"; do
@@ -89,13 +69,11 @@ else
     cpu_usage=0.0
 fi
 
-#echo "Status: $status"
-#echo "Memory used: $mem_used"
-#echo "CPU usage: $cpu_usage"
 
+# Check for record store and report its details
+  record_store_dirs="$base_dirs/safenode$Number/record_store"
+echo "$record_store_dirs"
 
-  # Check for record store and report its details
-  record_store_dirs="$base_dirs/$dir_name/record_store"
   if [[ -d "$record_store_dirs" ]]; then
     records=$(find "$record_store_dirs" -type f | wc -l)
     records=$records
@@ -124,13 +102,6 @@ echo "nodes,id=total total_disk=$total_disk,total_rewards=$total_rewards_balance
 
 
 echo "nodes latency=$latency $influx_time"
-
-## Update the registry file if new nodes were added
-#{
-#  for node_name in "${!node_numbers[@]}"; do
-#    echo "$node_name:${node_numbers[$node_name]}"
-#  done
-#} > "$registry_file"
 
 
 ######################################################
