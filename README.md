@@ -20,7 +20,7 @@ su - u <username>
 
 # after tig stack is set up use this to start and stop nodes
 
-```bash <(curl -s https://raw.githubusercontent.com/safenetforum-community/TIG_Stack/main/tig-stack.sh)```
+```bash <(curl -s https://raw.githubusercontent.com/safenetforum-community/TIG_Stack/main/maid.sh)```
 
 
 this script will run a whip tail menu script giving you the options to :
