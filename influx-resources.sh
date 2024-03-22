@@ -149,7 +149,11 @@ market_cap_gbp=$(awk -F'[:,]' '{print $5}' <<< $coingecko)
 exchange_rate_usd=$(awk -F'[:,]' '{print $7}' <<< $coingecko)
 market_cap_usd=$(awk -F'[:}]' '{print $6}' <<< $coingecko)
 
-echo "coingecko,curency=gbp exchange_rate=$exchange_rate_gbp,marketcap=$market_cap_gbp  $influx_time"
-echo "coingecko,curency=usd exchange_rate=$exchange_rate_usd,marketcap=$market_cap_usd  $influx_time"
+# calculate earnings in usd & gbp
+earnings_gbp=`echo $total_rewards_balance*$exchange_rate_gbp | bc`
+earnings_usd=`echo $total_rewards_balance*$exchange_rate_usd | bc`
+
+echo "coingecko,curency=gbp exchange_rate=$exchange_rate_gbp,marketcap=$market_cap_gbp,earnings=$earnings_gbp  $influx_time"
+echo "coingecko,curency=usd exchange_rate=$exchange_rate_usd,marketcap=$market_cap_usd,earnings=$earnings_usd  $influx_time"
 
 fi
