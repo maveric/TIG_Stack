@@ -71,7 +71,7 @@ fi
 
 
 # Check for record store and report its details
-  record_store_dirs="$base_dirs/safenode$Number/record_store"
+  record_store_dirs="$base_dirs/$dir_name/record_store"
   if [[ -d "$record_store_dirs" ]]; then
     records=$(find "$record_store_dirs" -type f | wc -l)
     records=$records
