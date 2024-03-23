@@ -83,7 +83,7 @@ fi
   fi
 
   # Retrieve and display rewards balance
-rewards_balance=$(${HOME}/.local/bin/safe wallet balance --peer-id="$dir_name" | grep -oP '(?<=: )\d+\.\d+')
+rewards_balance=$(${HOME}/.local/bin/safe wallet balance --peer-id="$ID" | grep -oP '(?<=: )\d+\.\d+')
 #  echo "Rewards balance: $rewards_balance"
 
 
