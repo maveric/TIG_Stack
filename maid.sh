@@ -121,7 +121,7 @@ sleep 2
 
 sudo env "PATH=$PATH" safenode-manager add --port "$NODE_PORT_FIRST"-$(($NODE_PORT_FIRST+$NUMBER_NODES-1))  --count "$NUMBER_NODES"  --peer "$PEER"  --version "$NODE"
 
-for i in {1..100}
+for i in {1..$NUMBER_NODES};
 do
  # your-unix-command-here
 sudo env "PATH=$PATH" safenode-manager start --service-name safenode"$i"
