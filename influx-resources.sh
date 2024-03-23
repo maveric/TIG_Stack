@@ -49,7 +49,7 @@ for dir_name in "${sorted_dirs[@]}"; do
 #  echo "Global (UTC) Timestamp: $(date +%s)"
 Number=${node_numbers[$dir_name]}
 #  echo "Node: $dir_name"
-ID="$dir_name"
+NUMBER="$dir_name"
 #  echo "PID: ${dir_pid[$dir_name]}"
 PID=${dir_pid[$dir_name]}
 if [[ -n "${dir_peer_ids[$dir_name]}" ]]; then
@@ -83,11 +83,11 @@ fi
   fi
 
   # Retrieve and display rewards balance
-rewards_balance=$(${HOME}/.local/bin/safe wallet balance --peer-id="$ID" | grep -oP '(?<=: )\d+\.\d+')
+rewards_balance=$(${HOME}/.local/bin/safe wallet balance --peer-id="$base_dirs/$dir_name" | grep -oP '(?<=: )\d+\.\d+')
 #  echo "Rewards balance: $rewards_balance"
 
 
-echo "nodes,service_number=$dir_name,id=$ID cpu=$cpu_usage,mem=$mem_used,status=$status,pid=$PID"i",records=$records"i",disk=$disk,rewards=$rewards_balance $influx_time"
+echo "nodes,service_number=$NUMBER,id=$ID cpu=$cpu_usage,mem=$mem_used,status=$status,pid=$PID"i",records=$records"i",disk=$disk,rewards=$rewards_balance $influx_time"
 
 
 total_disk=`echo $total_disk+$disk | bc`
