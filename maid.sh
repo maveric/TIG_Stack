@@ -159,6 +159,9 @@ sudo systemctl daemon-reload
 sudo rm -rf /var/safenode-manager
 sudo rm -rf /var/log/safenode
 
+sleep 2
+
+sudo reboot
 
 ############################## close fire wall
 
