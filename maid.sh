@@ -50,6 +50,7 @@ sudo systemctl daemon-reload
 
 sudo rm -rf /var/safenode-manager
 sudo rm -rf /var/log/safenode
+rm -rf  ~/.local/share/local_machine/
 rm -rf $HOME/.local/share/safe/nodes
 
 
@@ -158,6 +159,7 @@ sudo systemctl daemon-reload
 
 sudo rm -rf /var/safenode-manager
 sudo rm -rf /var/log/safenode
+rm -rf  ~/.local/share/local_machine/
 rm -rf $HOME/.local/share/safe/nodes
 
 sleep 2
