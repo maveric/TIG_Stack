@@ -120,19 +120,8 @@ sleep 2
 ############################## start nodes
 
 sudo env "PATH=$PATH" safenode-manager add --port "$NODE_PORT_FIRST"-$(($NODE_PORT_FIRST+$NUMBER_NODES-1))  --count "$NUMBER_NODES"  --peer "$PEER"  --version "$NODE"
-sudo env "PATH=$PATH" safenode-manager start
+sudo env "PATH=$PATH" safenode-manager start  --interval "$DELAY_BETWEEN_NODES"
 
-sleep 2
-
-############################# get 200 test coins
-for (( c=1; c<=2; c++ ))
-do
-   safe wallet get-faucet "$FAUCET"
-   sleep 1
-done
-
-############################# exit to Vdash
-#vdash --glob-path "$HOME/.local/share/safe/node/*/logs/safenode.log"
 
 ######################################################################################################################## Upgrade Client to Latest
 elif [[ "$SELECTION" == "2" ]]; then
