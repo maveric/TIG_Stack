@@ -124,7 +124,7 @@ sudo env "PATH=$PATH" safenode-manager add --port "$NODE_PORT_FIRST"-$(($NODE_PO
 for i in {1..$NUMBER_NODES};
 do
  # your-unix-command-here
-sudo env "PATH=$PATH" safenode-manager start --service-name safenode"$i"
+sudo env "PATH=$PATH" safenode-manager start --service-name safenode$i
 sleep "$DELAY_BETWEEN_NODES"
 done
 
