@@ -23,7 +23,7 @@ button=black,white
 
 SELECTION=$(whiptail --title "Safe Network Testnet" --radiolist \
 "Testnet Actions                              " 20 70 10 \
-"1" "Install & Start Nodes t" OFF \
+"1" "Install & Start Nodes " OFF \
 "2" "Upgrade Nodes & Client to Latest" OFF \
 "3" "Stop Nodes" OFF \
 "4" "Get Test Coins" ON \
