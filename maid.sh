@@ -23,7 +23,7 @@ button=black,white
 
 SELECTION=$(whiptail --title "Safe Network Testnet" --radiolist \
 "Testnet Actions                              " 20 70 10 \
-"1" "Start Node & upgrade client to Latest" OFF \
+"1" "Install & Start Nodes t" OFF \
 "2" "Upgrade Nodes & Client to Latest" OFF \
 "3" "Stop Nodes" OFF \
 "4" "Get Test Coins" ON \
@@ -109,7 +109,6 @@ sleep 2
 source /root/.config/safe/env
 
 
-safeup client --version "$CLIENT"
 safeup node-manager
 
 cargo install vdash
