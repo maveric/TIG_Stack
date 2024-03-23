@@ -50,7 +50,7 @@ sudo systemctl daemon-reload
 
 sudo rm -rf /var/safenode-manager
 sudo rm -rf /var/log/safenode
-
+rm -rf $HOME/.local/share/safe
 
 
 #remove old script if exists
