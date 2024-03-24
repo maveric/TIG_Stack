@@ -3,7 +3,7 @@
 export PATH=$PATH:$HOME/.local/bin
 
 #registry_file="$HOME/.local/share/safe/node_registry.conf"
-base_dirs="/var/safenode-manager/services"
+base_dirs=("${HOME}/.local/share/safe/node" "/var/safenode-manager/services")
 
 # influx db and grafana need data that is to be worked with to have the same time stamp this rounds time to the nearest 100 seconds to
 # attempt to keep all machines in sync for time purposes
@@ -20,6 +20,26 @@ declare -A dir_creation_times
 # Latency
 latency=$(ping -c 4 8.8.8.8 | tail -1| awk '{print $4}' | cut -d '/' -f 2)
 
+## Ensure the registry file exists with correct permissions
+#if [[ ! -f $registry_file ]]; then
+#    touch "$registry_file"
+#    chmod 644 "$registry_file"
+#    if [[ $? -ne 0 ]]; then
+#        echo "Error: Failed to set permissions on $registry_file. Check your user permissions."
+#        exit 1
+#    fi
+#fi
+
+## Load node numbers from the registry
+#while IFS=: read -r node_name number; do
+#    node_numbers["$node_name"]=$number
+##done < "$registry_file"
+
+## Identify the highest node number in the registry
+#max_number=-1
+#for number in "${node_numbers[@]}"; do
+#  ((number > max_number)) && max_number=$number
+#done
 
 # Discover nodes, capture their details, and conditionally fetch Peer IDs
 for base_dir in "${base_dirs[@]}"; do
@@ -49,7 +69,7 @@ for dir_name in "${sorted_dirs[@]}"; do
 #  echo "Global (UTC) Timestamp: $(date +%s)"
 Number=${node_numbers[$dir_name]}
 #  echo "Node: $dir_name"
-NUMBER="$dir_name"
+ID="$dir_name"
 #  echo "PID: ${dir_pid[$dir_name]}"
 PID=${dir_pid[$dir_name]}
 if [[ -n "${dir_peer_ids[$dir_name]}" ]]; then
@@ -69,8 +89,12 @@ else
     cpu_usage=0.0
 fi
 
+#echo "Status: $status"
+#echo "Memory used: $mem_used"
+#echo "CPU usage: $cpu_usage"
 
-# Check for record store and report its details
+
+  # Check for record store and report its details
   record_store_dirs="$base_dirs/$dir_name/record_store"
   if [[ -d "$record_store_dirs" ]]; then
     records=$(find "$record_store_dirs" -type f | wc -l)
@@ -83,11 +107,11 @@ fi
   fi
 
   # Retrieve and display rewards balance
-rewards_balance=$(${HOME}/.local/bin/safe wallet balance --peer-id="$base_dirs/$dir_name" | grep -oP '(?<=: )\d+\.\d+')
+rewards_balance=$(${HOME}/.local/bin/safe wallet balance --peer-id="$dir_name" | grep -oP '(?<=: )\d+\.\d+')
 #  echo "Rewards balance: $rewards_balance"
 
 
-echo "nodes,service_number=$NUMBER,id=$ID cpu=$cpu_usage,mem=$mem_used,status=$status,pid=$PID"i",records=$records"i",disk=$disk,rewards=$rewards_balance $influx_time"
+echo "nodes,id=$ID cpu=$cpu_usage,mem=$mem_used,status=$status,pid=$PID"i",records=$records"i",disk=$disk,rewards=$rewards_balance $influx_time"
 
 
 total_disk=`echo $total_disk+$disk | bc`
@@ -100,6 +124,13 @@ echo "nodes,id=total total_disk=$total_disk,total_rewards=$total_rewards_balance
 
 
 echo "nodes latency=$latency $influx_time"
+
+## Update the registry file if new nodes were added
+#{
+#  for node_name in "${!node_numbers[@]}"; do
+#    echo "$node_name:${node_numbers[$node_name]}"
+#  done
+#} > "$registry_file"
 
 
 ######################################################
