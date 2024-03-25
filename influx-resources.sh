@@ -10,6 +10,7 @@ base_dirs=("${HOME}/.local/share/safe/node" "/var/safenode-manager/services")
 influx_time="$(echo "$(date +%s%N)" | awk '{printf "%d0000000000\n", $0 / 10000000000}')"
 
 total_disk=0
+total_records=0
 total_rewards_balance=0
 
 declare -A dir_pid
@@ -115,12 +116,13 @@ echo "nodes,id=$ID cpu=$cpu_usage,mem=$mem_used,status=$status,pid=$PID"i",recor
 
 
 total_disk=`echo $total_disk+$disk | bc`
+total_records=`echo $total_records+$records | bc`
 total_rewards_balance=`echo $total_rewards_balance+$rewards_balance | bc`
 
 
 done
 
-echo "nodes,id=total total_disk=$total_disk,total_rewards=$total_rewards_balance $influx_time"
+echo "nodes,id=total total_disk=$total_disk,total_records=$total_records,total_rewards=$total_rewards_balance $influx_time"
 
 
 echo "nodes latency=$latency $influx_time"
