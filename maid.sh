@@ -5,6 +5,9 @@ NODE=0.104.41
 FAUCET=178.128.175.208:8000
 PEER="/ip4/192.168.0.1/udp/53306/quic-v1/p2p/12D3KooWNhe2aL4JcvPDiEy3QBejTyXmR733JxGeC2ejHrYbKf7m"      
 
+#run with
+# bash <(curl -s https://raw.githubusercontent.com/safenetforum-community/TIG_Stack/main/maid.sh)
+
 # first node port can edited in menu later
 NODE_PORT_FIRST=4700
 NUMBER_NODES=40
