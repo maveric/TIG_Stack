@@ -18,11 +18,6 @@ su - u <username>
 
 ```bash <(curl -s https://raw.githubusercontent.com/safenetforum-community/TIG_Stack/main/tig-stack.sh)```
 
-# after tig stack is set up use this to start and stop nodes
-
-```bash <(curl -s https://raw.githubusercontent.com/safenetforum-community/TIG_Stack/main/maid.sh)```
-
-
 this script will run a whip tail menu script giving you the options to :
 
 1. install Docker engine.
@@ -67,5 +62,8 @@ after connecting Grafana and InfluxDB select the option to import Dashboard
 2. paste it into the import dashboard window and save
 3. refresh Grafana and load the dashboard
 
+# after tig stack is set up use this to start and stop nodes
+
+```bash <(curl -s https://raw.githubusercontent.com/safenetforum-community/TIG_Stack/main/maid.sh)```
 
 
