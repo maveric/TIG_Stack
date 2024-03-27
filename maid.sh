@@ -3,7 +3,7 @@
 CLIENT=0.89.85
 NODE=0.104.41
 FAUCET=178.128.175.208:8000
-PEER="/ip4/44.214.100.193/udp/12001/quic-v1/p2p/12D3KooWE4gNLSEHjKrWfhNb4adk8U3cNJmPHDrqoShQ3xfyrgwH"
+PEER="/ip4/192.168.0.1/udp/53306/quic-v1/p2p/12D3KooWNhe2aL4JcvPDiEy3QBejTyXmR733JxGeC2ejHrYbKf7m"      
 
 # first node port can edited in menu later
 NODE_PORT_FIRST=4700
