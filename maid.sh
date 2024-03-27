@@ -122,12 +122,14 @@ sleep 2
 ############################## start nodes
 
 sudo env "PATH=$PATH" safenode-manager add --port "$NODE_PORT_FIRST"-$(($NODE_PORT_FIRST+$NUMBER_NODES-1))  --count "$NUMBER_NODES"  --peer "$PEER"  --version "$NODE"
+sudo env "PATH=$PATH" safenode-manager start
 
-for ((i=1;i<=$NUMBER_NODES;i++)); do
-
-    sudo env "PATH=$PATH" safenode-manager start --service-name safenode$i
-    sleep $DELAY_BETWEEN_NODES
-done
+# removed for testing new interval with 200 default
+#for ((i=1;i<=$NUMBER_NODES;i++)); do
+#
+#    sudo env "PATH=$PATH" safenode-manager start --service-name safenode$i
+#    sleep $DELAY_BETWEEN_NODES
+#done
 
 
 
