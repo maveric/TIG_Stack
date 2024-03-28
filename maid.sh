@@ -57,14 +57,7 @@ sudo rm -rf /var/log/safenode
 rm -rf  ~/.local/share/local_machine/
 
 
-#remove old script if exists
-sudo rm /usr/bin/influx-resources.sh*
-# download latest script from git hub
-sudo wget -P /usr/bin  https://raw.githubusercontent.com/safenetforum-community/TIG_Stack/main/influx-resources.sh
-#make executable
-sudo chmod u+x /usr/bin/influx-resources.sh
-
-#install new script
+#install latest infux resources script from github
 sudo rm /usr/bin/influx-resources.sh* && sudo wget -P /usr/bin  https://raw.githubusercontent.com/safenetforum-community/TIG_Stack/main/influx-resources.sh && sudo chmod u+x /usr/bin/influx-resources.sh
 
 
