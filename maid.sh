@@ -3,7 +3,7 @@
 CLIENT=0.90.1
 NODE=0.105.2
 FAUCET=188.166.171.13:8000
-SAFENODE-MANAGER=0.7.0
+SAFENODE_MANAGER=0.7.0
 PEER="/ip4/165.227.225.208/udp/55913/quic-v1/p2p/12D3KooWJ6NwxiqMj9Xy6XzLS5GD2V9Ks4NvTLoXejQHXMcKP34k"
 # get from https://sn-testnet.s3.eu-west-2.amazonaws.com/network-contacts
 
@@ -26,7 +26,7 @@ button=black,white
 
 ############################################## select test net action
 
-SELECTION=$(whiptail --title "Safe Network Testnet 1.2" --radiolist \
+SELECTION=$(whiptail --title "Safe Network Testnet 1.3" --radiolist \
 "Testnet Actions                              " 20 70 10 \
 "1" "Install & Start Nodes " OFF \
 "2" "Upgrade Client to Latest" OFF \
@@ -85,6 +85,7 @@ yes y | sudo ufw delete $(sudo ufw status numbered |(grep 'safe nodes'|awk -F"[]
 # sudo apt install curl
 
 curl -sSL https://raw.githubusercontent.com/maidsafe/safeup/main/install.sh | bash
+source ~/.config/safe/env
 
 rm -rf $HOME/.local/share/safe
 
@@ -100,13 +101,7 @@ sudo systemctl stop vnstat.service
 sudo rm -rf /var/lib/vnstat/
 sudo systemctl start vnstat.service
 
-sleep 2
-############################## install client node and vdash
-# Source the environment variables
-#source /root/.config/safe/env
-source ~/.config/safe/env
-
-safeup node-manager --version "$SAFENODE-MANAGER"
+safeup node-manager --version "$SAFENODE_MANAGER"
 
 cargo install vdash
 
