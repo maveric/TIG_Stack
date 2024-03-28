@@ -3238,41 +3238,10 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 2,
-            "pointSize": 1,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
+            "mode": "thresholds"
           },
           "mappings": [],
+          "max": 2048,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -3282,7 +3251,7 @@
               },
               {
                 "color": "red",
-                "value": 80
+                "value": 1848
               }
             ]
           },
@@ -3298,17 +3267,24 @@
       },
       "id": 65100,
       "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": false
+        "displayMode": "gradient",
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
         },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
       },
+      "pluginVersion": "10.4.0",
       "targets": [
         {
           "datasource": {
@@ -3319,8 +3295,38 @@
           "refId": "A"
         }
       ],
-      "title": "Records",
-      "type": "timeseries"
+      "title": "Records on safe nodes by service number",
+      "transformations": [
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": ".*(\\{[^}]*\\}).*",
+            "renamePattern": "$1"
+          }
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": ".*(service_number=\"[A-Za-z0-9-]+\").*",
+            "renamePattern": "$1"
+          }
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": ".*(\".*\").*",
+            "renamePattern": "$1"
+          }
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "\"safenode([A-Za-z0-9]+)\"",
+            "renamePattern": "$1"
+          }
+        }
+      ],
+      "type": "bargauge"
     },
     {
       "datasource": {
@@ -3888,6 +3894,6 @@
   "timezone": "browser",
   "title": "Safe Dashboard",
   "uid": "7JdIfTn9z",
-  "version": 44,
+  "version": 48,
   "weekStart": ""
 }
