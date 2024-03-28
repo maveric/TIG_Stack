@@ -3,7 +3,8 @@
 CLIENT=0.90.1
 NODE=0.105.2
 FAUCET=188.166.171.13:8000
-PEER="/ip4/192.168.0.1/udp/53306/quic-v1/p2p/12D3KooWNhe2aL4JcvPDiEy3QBejTyXmR733JxGeC2ejHrYbKf7m"      
+PEER="/ip4/192.168.0.1/udp/53306/quic-v1/p2p/12D3KooWNhe2aL4JcvPDiEy3QBejTyXmR733JxGeC2ejHrYbKf7m"
+# get from https://sn-testnet.s3.eu-west-2.amazonaws.com/network-contacts
 
 #run with
 # bash <(curl -s https://raw.githubusercontent.com/safenetforum-community/TIG_Stack/main/maid.sh)
