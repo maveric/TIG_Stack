@@ -13,7 +13,7 @@ PEER="/ip4/165.227.225.208/udp/55913/quic-v1/p2p/12D3KooWJ6NwxiqMj9Xy6XzLS5GD2V9
 NODE_PORT_FIRST=4700
 NUMBER_NODES=40
 NUMBER_COINS=1
-DELAY_BETWEEN_NODES=61
+DELAY_BETWEEN_NODES=200
 NODE_START_TIME=0
 
 export NEWT_COLORS='
@@ -122,16 +122,8 @@ sleep 2
 
 ############################## start nodes
 
-sudo env "PATH=$PATH" safenode-manager add --port "$NODE_PORT_FIRST"-$(($NODE_PORT_FIRST+$NUMBER_NODES-1))  --count "$NUMBER_NODES"  --peer "$PEER"  --version "$NODE"
-sudo env "PATH=$PATH" safenode-manager start
-
-# removed for testing new interval with 200 default
-#for ((i=1;i<=$NUMBER_NODES;i++)); do
-#
-#    sudo env "PATH=$PATH" safenode-manager start --service-name safenode$i
-#    sleep $DELAY_BETWEEN_NODES
-#done
-
+sudo env "PATH=$PATH" safenode-manager add --node-port "$NODE_PORT_FIRST"-$(($NODE_PORT_FIRST+$NUMBER_NODES-1))  --count "$NUMBER_NODES"  --peer "$PEER"  --version "$NODE"
+sudo env "PATH=$PATH" safenode-manager start --interval "$DELAY_BETWEEN_NODES"
 
 
 ######################################################################################################################## Upgrade Client to Latest
@@ -141,7 +133,7 @@ rm -rf $HOME/.local/share/safe/client
 # upgrade client and get some Coins
 safeup client
 
-sudo env "PATH=$PATH" safenode-manager upgrade
+#sudo env "PATH=$PATH" safenode-manager upgrade
 
 sleep 2
 safe wallet get-faucet "$FAUCET"
