@@ -104,7 +104,7 @@ sleep 2
 ############################## install client node and vdash
 # Source the environment variables
 #source /root/.config/safe/env
-
+source ~/.config/safe/env
 
 safeup node-manager --version "$SAFENODE-MANAGER"
 
