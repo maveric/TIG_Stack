@@ -26,7 +26,7 @@ button=black,white
 
 ############################################## select test net action
 
-SELECTION=$(whiptail --title "Safe Network Testnet 1.0" --radiolist \
+SELECTION=$(whiptail --title "Safe Network Testnet 1.1" --radiolist \
 "Testnet Actions                              " 20 70 10 \
 "1" "Install & Start Nodes " OFF \
 "2" "Upgrade Client to Latest" OFF \
@@ -103,7 +103,7 @@ sudo systemctl start vnstat.service
 sleep 2
 ############################## install client node and vdash
 # Source the environment variables
-source /root/.config/safe/env
+#source /root/.config/safe/env
 
 
 safeup node-manager --version "$SAFENODE-MANAGER"
