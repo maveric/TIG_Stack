@@ -101,7 +101,15 @@ sudo systemctl stop vnstat.service
 sudo rm -rf /var/lib/vnstat/
 sudo systemctl start vnstat.service
 
-safeup node-manager --version "$SAFENODE_MANAGER"
+#safeup node-manager --version "$SAFENODE_MANAGER"
+
+# added as manaual over ride while safe node manager release is borked
+wget https://github.com/maidsafe/safe_network/releases/download/sn-node-manager-v0.7.2/safenode-manager--x86_64-unknown-linux-musl.tar.gz
+tar -xvzf safenode-manager--x86_64-unknown-linux-musl.tar.gz
+cp safenode-manager /home/ubuntu/.local/bin/safenode-manager
+rm ./safenode*
+
+
 
 cargo install vdash
 
@@ -112,14 +120,14 @@ sleep 2
 ############################## start nodes
 
 sudo env "PATH=$PATH" safenode-manager add --node-port "$NODE_PORT_FIRST"-$(($NODE_PORT_FIRST+$NUMBER_NODES-1))  --count "$NUMBER_NODES"  --peer "$PEER"  --version "$NODE"
-#sudo env "PATH=$PATH" safenode-manager start --interval "$DELAY_BETWEEN_NODES"
+sudo env "PATH=$PATH" safenode-manager start --interval "$DELAY_BETWEEN_NODES"
 
 # FOR USE UNTILL TESTING --INTERVAL IS COMPLETED
-for ((i=1;i<=$NUMBER_NODES;i++)); do
-
-    sudo env "PATH=$PATH" safenode-manager start --service-name safenode$i
-    sleep $DELAY_BETWEEN_NODES
-done
+#for ((i=1;i<=$NUMBER_NODES;i++)); do
+#
+#    sudo env "PATH=$PATH" safenode-manager start --service-name safenode$i
+#    sleep $DELAY_BETWEEN_NODES
+#done
 
 ######################################################################################################################## Upgrade Client to Latest
 elif [[ "$SELECTION" == "2" ]]; then
