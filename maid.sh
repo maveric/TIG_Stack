@@ -117,9 +117,7 @@ sleep 2
 ############################## start nodes
 
 sudo env "PATH=$PATH" safenode-manager add --node-port "$NODE_PORT_FIRST"-$(($NODE_PORT_FIRST+$NUMBER_NODES-1))  --count "$NUMBER_NODES"  --peer "$PEER"  --version "$NODE"
-sudo env "PATH=$PATH" safenode-manager start 
-
-#--interval "$DELAY_BETWEEN_NODES"
+sudo env "PATH=$PATH" safenode-manager start --interval "$DELAY_BETWEEN_NODES"
 
 
 ######################################################################################################################## Upgrade Client to Latest
