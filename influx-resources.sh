@@ -9,29 +9,20 @@ base_dirs="/var/safenode-manager/services"
 influx_time="$(echo "$(date +%s%N)" | awk '{printf "%d0000000000\n", $0 / 10000000000}')"
 
 
+
 ######################################################
 # coin gecko gets upset with to many requests this atempts to get the exchange every 15 min
 # https://www.coingecko.com/api/documentation
 ######################################################
 time_min=$(date +"%M")
-
+CALCULATE_EARNINGS=0
 # execute script every 15 min if the tig stack folder is present
 if [ $time_min == 0 ] || [ $time_min == 15 ] || [ $time_min == 30 ] || [ $time_min == 45 ]
 then
-
-coingecko=$(curl -s -X 'GET' 'https://api.coingecko.com/api/v3/simple/price?ids=maidsafecoin&vs_currencies=gbp%2Cusd&include_market_cap=true' -H 'accept: application/json')
-exchange_rate_gbp=$(awk -F'[:,]' '{print $3}' <<< $coingecko)
-market_cap_gbp=$(awk -F'[:,]' '{print $5}' <<< $coingecko)
-exchange_rate_usd=$(awk -F'[:,]' '{print $7}' <<< $coingecko)
-market_cap_usd=$(awk -F'[:}]' '{print $6}' <<< $coingecko)
-
-# calculate earnings in usd & gbp
-earnings_gbp=`echo $total_rewards_balance*$exchange_rate_gbp | bc`
-earnings_usd=`echo $total_rewards_balance*$exchange_rate_usd | bc`
-
-echo "coingecko,curency=gbp exchange_rate=$exchange_rate_gbp,marketcap=$market_cap_gbp,earnings=$earnings_gbp  $influx_time"
-echo "coingecko,curency=usd exchange_rate=$exchange_rate_usd,marketcap=$market_cap_usd,earnings=$earnings_usd  $influx_time"
+CALCULATE_EARNINGS=1
 fi
+
+
 
 
 total_disk=0
@@ -128,3 +119,27 @@ echo "nodes,id=total total_disk=$total_disk,total_records=$total_records,total_r
 
 
 echo "nodes latency=$latency $influx_time"
+
+
+######################################################
+# coin gecko gets upset with to many requests this atempts to get the exchange every 15 min
+# https://www.coingecko.com/api/documentation
+######################################################
+
+# execute script every 15 min if the tig stack folder is present
+if [ CALCULATE_EARNINGS == 1 ]
+then
+
+coingecko=$(curl -s -X 'GET' 'https://api.coingecko.com/api/v3/simple/price?ids=maidsafecoin&vs_currencies=gbp%2Cusd&include_market_cap=true' -H 'accept: application/json')
+exchange_rate_gbp=$(awk -F'[:,]' '{print $3}' <<< $coingecko)
+market_cap_gbp=$(awk -F'[:,]' '{print $5}' <<< $coingecko)
+exchange_rate_usd=$(awk -F'[:,]' '{print $7}' <<< $coingecko)
+market_cap_usd=$(awk -F'[:}]' '{print $6}' <<< $coingecko)
+
+# calculate earnings in usd & gbp
+earnings_gbp=`echo $total_rewards_balance*$exchange_rate_gbp | bc`
+earnings_usd=`echo $total_rewards_balance*$exchange_rate_usd | bc`
+
+echo "coingecko,curency=gbp exchange_rate=$exchange_rate_gbp,marketcap=$market_cap_gbp,earnings=$earnings_gbp  $influx_time"
+echo "coingecko,curency=usd exchange_rate=$exchange_rate_usd,marketcap=$market_cap_usd,earnings=$earnings_usd  $influx_time"
+fi
