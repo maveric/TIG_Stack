@@ -26,7 +26,7 @@ button=black,white
 
 ############################################## select test net action
 
-SELECTION=$(whiptail --title "Safe Network Testnet 1.6" --radiolist \
+SELECTION=$(whiptail --title "Safe Network Testnet 1.7" --radiolist \
 "Testnet Actions                              " 20 70 10 \
 "1" "Install & Start Nodes " OFF \
 "2" "Upgrade Client to Latest" OFF \
@@ -104,10 +104,10 @@ sudo systemctl start vnstat.service
 #safeup node-manager --version "$SAFENODE_MANAGER"
 
 # added as manaual over ride while safe node manager release is borked
-wget https://github.com/maidsafe/safe_network/releases/download/sn-node-manager-v0.7.2/safenode-manager--x86_64-unknown-linux-musl.tar.gz
-tar -xvzf safenode-manager--x86_64-unknown-linux-musl.tar.gz
-cp safenode-manager /home/ubuntu/.local/bin/safenode-manager
-rm ./safenode*
+#wget https://github.com/maidsafe/safe_network/releases/download/sn-node-manager-v0.7.2/safenode-manager--x86_64-unknown-linux-musl.tar.gz
+#tar -xvzf safenode-manager--x86_64-unknown-linux-musl.tar.gz
+#cp safenode-manager /home/ubuntu/.local/bin/safenode-manager
+#rm ./safenode*
 
 
 
