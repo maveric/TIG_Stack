@@ -23,8 +23,6 @@ CALCULATE_EARNINGS=1
 fi
 
 
-
-
 total_disk=0
 total_records=0
 total_rewards_balance=0
@@ -127,7 +125,7 @@ echo "nodes latency=$latency $influx_time"
 ######################################################
 
 # execute script every 15 min if the tig stack folder is present
-if [ CALCULATE_EARNINGS == 1 ]
+if [ "$CALCULATE_EARNINGS"="1" ]
 then
 
 coingecko=$(curl -s -X 'GET' 'https://api.coingecko.com/api/v3/simple/price?ids=maidsafecoin&vs_currencies=gbp%2Cusd&include_market_cap=true' -H 'accept: application/json')
