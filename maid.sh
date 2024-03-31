@@ -3,7 +3,6 @@
 CLIENT=0.90.1
 NODE=0.105.2
 FAUCET=188.166.171.13:8000
-SAFENODE_MANAGER=0.7.0
 PEER="/ip4/165.227.225.208/udp/55913/quic-v1/p2p/12D3KooWJ6NwxiqMj9Xy6XzLS5GD2V9Ks4NvTLoXejQHXMcKP34k"
 # get from https://sn-testnet.s3.eu-west-2.amazonaws.com/network-contacts
 
@@ -105,15 +104,7 @@ sudo systemctl stop vnstat.service
 sudo rm -rf /var/lib/vnstat/
 sudo systemctl start vnstat.service
 
-#safeup node-manager --version "$SAFENODE_MANAGER"
-
-# added as manaual over ride while safe node manager release is borked
-wget https://github.com/maidsafe/safe_network/releases/download/sn-node-manager-v0.7.2/safenode-manager--x86_64-unknown-linux-musl.tar.gz
-tar -xvzf safenode-manager--x86_64-unknown-linux-musl.tar.gz
-cp safenode-manager /home/ubuntu/.local/bin/safenode-manager
-rm ./safenode*
-
-
+safeup node-manager
 
 cargo install vdash
 
