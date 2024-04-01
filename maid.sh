@@ -43,6 +43,8 @@ if [[ "$SELECTION" == "1" ]]; then
 
 # remove cron job if exists
 sudo rm /etc/cron.d/influx_resources
+sudo rm /etc/cron.d/ntracking_resources
+
 
 # nuke safe node manager services 1 - 100 untill nuke comand exists
 
@@ -117,8 +119,9 @@ sleep 2
 sudo env "PATH=$PATH" safenode-manager add --node-port "$NODE_PORT_FIRST"-$(($NODE_PORT_FIRST+$NUMBER_NODES-1))  --count "$NUMBER_NODES"  --peer "$PEER"  --version "$NODE"
 sudo env "PATH=$PATH" safenode-manager start --interval $DELAY_BETWEEN_NODES
 
-# add cron job for influx resources
+# add cron job for NTracking & influx resources
 echo "*/15 * * * * $USER /usr/bin/mkdir -p /tmp/influx-resources && /bin/bash /usr/bin/influx-resources.sh > /tmp/influx-resources/influx-resources" | sudo tee /etc/cron.d/influx_resources
+echo "*/20 * * * * $USER /usr/bin/mkdir -p $HOME/.local/share/local_machine && /bin/bash $HOME/.local/share/ntracking/resources.sh >> $HOME/.local/share/local_machine/resources_\$(date +\%Y\%m\%d).log 2>&1" | sudo tee /etc/cron.d/ntracking_resources
 
 ######################################################################################################################## Upgrade Client to Latest
 elif [[ "$SELECTION" == "2" ]]; then
@@ -137,6 +140,7 @@ elif [[ "$SELECTION" == "3" ]]; then
 
 # remove cron job if exists
 sudo rm /etc/cron.d/influx_resources
+sudo rm /etc/cron.d/ntracking_resources
 
 # stop nodes
 # nuke safe node manager services 1 - 100 untill nuke comand exists
