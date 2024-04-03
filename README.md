@@ -25,9 +25,9 @@ this script will run a whip tail menu script giving you the options to :
 3. setup an install of Telegraf which will send data to influxDB.
 4. uninstall telegraf influx and grafana.
 
-Docker Engine must be installed first on all machines
+Docker Engine only needs to be installed on the machine hosting influxDB and Grafana
 
-Telegraf must be installed on all machines that are to send data to influx including the one which hosts Influx and Grafana.
+Telegraf must be installed on all machines that are to send data to influx including the one which hosts Influx and Grafana if it is running nodes.
 
 
 # Defaults for Influx and Grafana
