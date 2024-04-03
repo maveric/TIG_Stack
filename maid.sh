@@ -25,7 +25,7 @@ button=black,white
 
 ############################################## select test net action
 
-SELECTION=$(whiptail --title "Safe Network Testnet 1.7" --radiolist \
+SELECTION=$(whiptail --title "Safe Network Testnet 1.8" --radiolist \
 "Testnet Actions                              " 20 70 10 \
 "1" "Install & Start Nodes " OFF \
 "2" "Upgrade Client to Latest" OFF \
@@ -41,11 +41,6 @@ fi
 ################################################################################################################ start or Upgrade Client & Node to Latest
 if [[ "$SELECTION" == "1" ]]; then
 
-# remove cron job if exists
-sudo rm /etc/cron.d/influx_resources
-sudo rm /etc/cron.d/ntracking_resources
-
-
 # nuke safe node manager services 1 - 100 untill nuke comand exists
 
 for i in {1..100}
@@ -60,7 +55,7 @@ sudo systemctl daemon-reload
 sudo rm -rf /var/safenode-manager
 sudo rm -rf /var/log/safenode
 rm -rf  ~/.local/share/local_machine/
-rm -rf /tmp/influx-resources
+#rm -rf /tmp/influx-resources
 
 
 #install latest infux resources script from github
@@ -118,13 +113,7 @@ sleep 2
 ############################## start nodes
 
 sudo env "PATH=$PATH" safenode-manager add --node-port "$NODE_PORT_FIRST"-$(($NODE_PORT_FIRST+$NUMBER_NODES-1))  --count "$NUMBER_NODES"  --peer "$PEER"  --version "$NODE"
-mkdir /tmp/influx-resources
-touch /tmp/influx-resources/influx-resources
-sudo env "PATH=$PATH" safenode-manager start --interval $DELAY_BETWEEN_NODES | tee /tmp/influx-resources/nodemanager_output \
-&& echo "*/15 * * * * $USER /usr/bin/mkdir -p /tmp/influx-resources && /bin/bash /usr/bin/influx-resources.sh > /tmp/influx-resources/influx-resources" | sudo tee /etc/cron.d/influx_resources \
-&& echo "*/20 * * * * $USER /usr/bin/mkdir -p $HOME/.local/share/local_machine && /bin/bash $HOME/.local/share/ntracking/resources.sh >> $HOME/.local/share/local_machine/resources_\$(date +\%Y\%m\%d).log 2>&1" | sudo tee /etc/cron.d/ntracking_resources \
-&& sudo systemctl restart telegraf.service \
-& disown
+sudo env "PATH=$PATH" safenode-manager start --interval $DELAY_BETWEEN_NODES | tee /tmp/influx-resources/nodemanager_output & disown
 
 
 
@@ -143,10 +132,6 @@ safe wallet get-faucet "$FAUCET"
 ######################################################################################################################## Stop Nodes
 elif [[ "$SELECTION" == "3" ]]; then
 
-# remove cron job if exists
-sudo rm /etc/cron.d/influx_resources
-sudo rm /etc/cron.d/ntracking_resources
-
 # stop nodes
 # nuke safe node manager services 1 - 100 untill nuke comand exists
 
@@ -162,7 +147,6 @@ sudo systemctl daemon-reload
 sudo rm -rf /var/safenode-manager
 sudo rm -rf /var/log/safenode
 rm -rf  ~/.local/share/local_machine/
-rm -rf /tmp/influx-resources
 
 sleep 2
 
