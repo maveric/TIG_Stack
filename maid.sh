@@ -25,7 +25,7 @@ button=black,white
 
 ############################################## select test net action
 
-SELECTION=$(whiptail --title "Safe Network Testnet 1.8" --radiolist \
+SELECTION=$(whiptail --title "Safe Network Testnet 1.9" --radiolist \
 "Testnet Actions                              " 20 70 10 \
 "1" "Install & Start Nodes " OFF \
 "2" "Upgrade Client to Latest" OFF \
@@ -55,7 +55,6 @@ sudo systemctl daemon-reload
 sudo rm -rf /var/safenode-manager
 sudo rm -rf /var/log/safenode
 rm -rf  ~/.local/share/local_machine/
-#rm -rf /tmp/influx-resources
 
 
 #install latest infux resources script from github
@@ -78,7 +77,7 @@ if [[ $? -eq 255 ]]; then
 exit 0
 fi
 
-############################## count nodes directories and close fire wall
+##############################  close fire wall
 yes y | sudo ufw delete $(sudo ufw status numbered |(grep 'safe nodes'|awk -F"[][]" '{print $2}')) && yes y | sudo ufw delete $(sudo ufw status numbered |(grep 'safe nodes'|awk -F"[][]" '{print $2}'))
 ############################## Stop Nodes and delete safe folder
 
@@ -112,6 +111,7 @@ sleep 2
 
 ############################## start nodes
 
+mkdir -p /tmp/influx-resources
 sudo env "PATH=$PATH" safenode-manager add --node-port "$NODE_PORT_FIRST"-$(($NODE_PORT_FIRST+$NUMBER_NODES-1))  --count "$NUMBER_NODES"  --peer "$PEER"  --version "$NODE"
 sudo env "PATH=$PATH" safenode-manager start --interval $DELAY_BETWEEN_NODES | tee /tmp/influx-resources/nodemanager_output & disown
 
