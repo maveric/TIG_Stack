@@ -35,6 +35,8 @@ declare -A dir_creation_times
 # Latency
 latency=$(ping -c 4 8.8.8.8 | tail -1| awk '{print $4}' | cut -d '/' -f 2)
 
+#get node overview from safe node manager
+safenode-manager status --details > /tmp/influx-resources/nodes_overview
 
 # Discover nodes, capture their details, and conditionally fetch Peer IDs
 for base_dir in "${base_dirs[@]}"; do
@@ -46,6 +48,12 @@ for base_dir in "${base_dirs[@]}"; do
 
             # Assign a new number to unregistered nodes
             [[ -z ${node_numbers["$dir_name"]} ]] && node_numbers["$dir_name"]=$((++max_number))
+
+            if [[ "$base_dir" == "/var/safenode-manager/services" ]]; then
+                # Fetch the Peer ID by parsing `safenode-manager status --details`
+				peer_id=$(echo "$(</tmp/influx-resources/nodes_overview)" | grep -A 5 "$dir_name - RUNNING" | grep "Peer ID:" | awk '{print $3}')
+                dir_peer_ids["$dir_name"]="$peer_id"
+            fi
         fi
     done
 done
@@ -97,7 +105,7 @@ rewards_balance=$(${HOME}/.local/bin/safe wallet balance --peer-id="$base_dirs/$
 #  echo "Rewards balance: $rewards_balance"
 
 
-echo "nodes,service_number=$NUMBER cpu=$cpu_usage,mem=$mem_used,status=$status,pid=$PID"i",records=$records"i",disk=$disk,rewards=$rewards_balance $influx_time"
+echo "nodes,service_number=$NUMBER,id=$ID cpu=$cpu_usage,mem=$mem_used,status=$status,pid=$PID"i",records=$records"i",disk=$disk,rewards=$rewards_balance $influx_time"
 
 
 total_disk=`echo $total_disk+$disk | bc`
