@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+echo "stoping nodes"
+sleep 1
 
 for i in {51..100}
 do
