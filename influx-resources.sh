@@ -26,6 +26,7 @@ fi
 total_disk=0
 total_records=0
 total_rewards_balance=0
+total_nodes_started=0
 
 declare -A dir_pid
 declare -A dir_peer_ids
@@ -111,11 +112,11 @@ echo "nodes,service_number=$NUMBER,id=$ID cpu=$cpu_usage,mem=$mem_used,status=$s
 total_disk=`echo $total_disk+$disk | bc`
 total_records=`echo $total_records+$records | bc`
 total_rewards_balance=`echo $total_rewards_balance+$rewards_balance | bc`
-
+total_nodes_started=`echo $total_nodes_started+1 | bc`
 
 done
 
-echo "nodes,id=total total_disk=$total_disk,total_records=$total_records,total_rewards=$total_rewards_balance $influx_time"
+echo "nodes,id=total total_disk=$total_disk,total_records=$total_records,total_rewards=$total_rewards_balance, total_nodes_started=$total_nodes_started $influx_time"
 
 
 echo "nodes latency=$latency $influx_time"
