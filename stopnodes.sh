@@ -4,15 +4,15 @@ sleep 1
 
 for i in {51..100}
 do
- # your-unix-command-here
- sudo systemctl disable --now safenode$i
- sudo rm /etc/systemd/system/safenode$i.service
-sudo rm -rf /var/safenode-manager/services/safenode$i
-sudo rm -rf /var/log/safenode/safenode$i
+
+sudo env "PATH=$PATH" safenode-manager remove --service-name safenode$i
+ 
+#sudo systemctl disable --now safenode$i
+#sudo rm /etc/systemd/system/safenode$i.service
+#sudo rm -rf /var/safenode-manager/services/safenode$i
+#sudo rm -rf /var/log/safenode/safenode$i
 
 done
-
-sudo systemctl daemon-reload
 
 
 # remove NTracking cron jobs temp til NTracking is fixed
