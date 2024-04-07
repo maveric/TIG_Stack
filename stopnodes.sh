@@ -5,6 +5,7 @@ sleep 1
 for i in {51..70}
 do
 
+sudo env "PATH=$PATH" safenode-manager stop --service-name safenode$i
 sudo env "PATH=$PATH" safenode-manager remove --service-name safenode$i
  
 #sudo systemctl disable --now safenode$i
