@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-for i in {56..100}
+for i in {51..100}
 do
  # your-unix-command-here
  sudo systemctl disable --now safenode$i
