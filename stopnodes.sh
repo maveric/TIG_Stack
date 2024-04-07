@@ -2,7 +2,7 @@
 echo "stoping nodes"
 sleep 1
 
-for i in {51..100}
+for i in {51..70}
 do
 
 sudo env "PATH=$PATH" safenode-manager remove --service-name safenode$i
