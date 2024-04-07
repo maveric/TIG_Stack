@@ -116,7 +116,7 @@ total_nodes_started=`echo $total_nodes_started+1 | bc`
 
 done
 
-echo "nodes,id=total total_disk=$total_disk,total_records=$total_records,total_rewards=$total_rewards_balance, total_nodes_started=$total_nodes_started $influx_time"
+echo "nodes,id=total total_disk=$total_disk,total_records=$total_records,total_rewards=$total_rewards_balance,total_nodes_started=$total_nodes_started $influx_time"
 
 
 echo "nodes latency=$latency $influx_time"
