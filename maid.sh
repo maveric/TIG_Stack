@@ -25,7 +25,7 @@ button=black,white
 
 ############################################## select test net action
 
-SELECTION=$(whiptail --title "Safe Network Testnet 1.9" --radiolist \
+SELECTION=$(whiptail --title "Safe Network Testnet 1.0" --radiolist \
 "Testnet Actions                              " 20 70 10 \
 "1" "Install & Start Nodes " OFF \
 "2" "Upgrade Client to Latest" OFF \
@@ -40,6 +40,11 @@ fi
 
 ################################################################################################################ start or Upgrade Client & Node to Latest
 if [[ "$SELECTION" == "1" ]]; then
+
+# remove NTracking cron jobs temp til NTracking is fixed
+sudo rm /etc/cron.d/ntracking*
+# add cron job for tig stack on 5 min schedule
+echo "*/5 * * * * $USER /usr/bin/mkdir -p /tmp/influx-resources && /bin/bash /usr/bin/influx-resources.sh > /tmp/influx-resources/influx-resources" | sudo tee /etc/cron.d/influx_resources
 
 # nuke safe node manager services 1 - 100 untill nuke comand exists
 
