@@ -179,7 +179,7 @@ done
 ######################################################################################################################### Upgrade Nodes
 elif [[ "$SELECTION" == "5" ]]; then
 sudo rm /etc/cron.d/influx_resources
-safeup node-manager
+#safeup node-manager
 mkdir -p /tmp/influx-resources
 sudo env "PATH=$PATH" safenode-manager upgrade | tee /tmp/influx-resources/node_upgrade_report && echo "*/5 * * * * $USER /usr/bin/mkdir -p /tmp/influx-resources && /bin/bash /usr/bin/influx-resources.sh > /tmp/influx-resources/influx-resources" | sudo tee /etc/cron.d/influx_resources & disown
 ######################################################################################################################### Start Vdash
