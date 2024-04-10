@@ -177,7 +177,8 @@ done
 
 ######################################################################################################################### Upgrade Nodes
 elif [[ "$SELECTION" == "5" ]]; then
-sudo env "PATH=$PATH" safenode-manager upgrade & disown
+mkdir -p /tmp/influx-resources
+sudo env "PATH=$PATH" safenode-manager upgrade | tee /tmp/influx-resources/node_upgrade_report & disown
 ######################################################################################################################### Start Vdash
 elif [[ "$SELECTION" == "6" ]]; then
 vdash --glob-path "/var/log/safenode/*/safenode.log"
