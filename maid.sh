@@ -90,8 +90,9 @@ yes y | sudo ufw delete $(sudo ufw status numbered |(grep 'safe nodes'|awk -F"[]
 # sudo snap remove curl
 # sudo apt install curl
 
-curl -sSL https://raw.githubusercontent.com/maidsafe/safeup/main/install.sh | bash
-source ~/.config/safe/env
+# disable installing safe up for every run
+#curl -sSL https://raw.githubusercontent.com/maidsafe/safeup/main/install.sh | bash
+#source ~/.config/safe/env
 
 rm -rf $HOME/.local/share/safe
 
