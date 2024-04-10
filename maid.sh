@@ -31,8 +31,9 @@ SELECTION=$(whiptail --title "Safe Network Testnet 1.0" --radiolist \
 "2" "Upgrade Client to Latest" OFF \
 "3" "Stop Nodes" OFF \
 "4" "Get Test Coins" ON \
-"5" "Start Vdash" OFF \
-"6" "Update & Upgrade SYSTEM and RESTART!!   " OFF 3>&1 1>&2 2>&3)
+"5" "Upgrade Nodes" OFF \
+"6" "Start Vdash" OFF \
+"7" "Update & Upgrade SYSTEM and RESTART!!   " OFF 3>&1 1>&2 2>&3)
 
 if [[ $? -eq 255 ]]; then
 exit 0
@@ -173,12 +174,15 @@ do
    safe wallet get-faucet "$FAUCET"
    sleep 1
 done
-######################################################################################################################### Start Vdash
-elif [[ "$SELECTION" == "5" ]]; then
-vdash --glob-path "/var/log/safenode/*/safenode.log"
 
-######################################################################################################################### update and restart
+######################################################################################################################### Upgrade Nodes
+elif [[ "$SELECTION" == "5" ]]; then
+sudo env "PATH=$PATH" safenode-manager upgrade & disown
+######################################################################################################################### Start Vdash
 elif [[ "$SELECTION" == "6" ]]; then
+vdash --glob-path "/var/log/safenode/*/safenode.log"
+######################################################################################################################### update and restart
+elif [[ "$SELECTION" == "7" ]]; then
 rustup update
 sudo apt update -y && sudo apt upgrade -y
 sudo reboot
