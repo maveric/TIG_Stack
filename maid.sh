@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-CLIENT=0.90.2
-NODE=0.105.2
+CLIENT=0.90.4
+NODE=0.105.6
 FAUCET=188.166.171.13:8000
 PEER="/ip4/165.227.225.208/udp/55913/quic-v1/p2p/12D3KooWJ6NwxiqMj9Xy6XzLS5GD2V9Ks4NvTLoXejQHXMcKP34k"
 # get from https://sn-testnet.s3.eu-west-2.amazonaws.com/network-contacts
