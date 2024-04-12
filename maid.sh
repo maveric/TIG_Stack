@@ -11,9 +11,9 @@ PEER="/ip4/165.227.225.208/udp/55913/quic-v1/p2p/12D3KooWJ6NwxiqMj9Xy6XzLS5GD2V9
 
 # first node port can edited in menu later
 NODE_PORT_FIRST=4700
-NUMBER_NODES=25
+NUMBER_NODES=50
 NUMBER_COINS=1
-DELAY_BETWEEN_NODES=301
+DELAY_BETWEEN_NODES=601
 NODE_START_TIME=0
 
 export NEWT_COLORS='
@@ -119,7 +119,8 @@ sleep 2
 ############################## start nodes
 
 mkdir -p /tmp/influx-resources
-sudo env "PATH=$PATH" safenode-manager add --node-port "$NODE_PORT_FIRST"-$(($NODE_PORT_FIRST+$NUMBER_NODES-1))  --count "$NUMBER_NODES"  --peer "$PEER"  --version "$NODE"
+sudo env "PATH=$PATH" safenode-manager add --node-port "$NODE_PORT_FIRST"-$(($NODE_PORT_FIRST+$NUMBER_NODES-1))  --count "$NUMBER_NODES"  --peer "$PEER"  --url http://safe-logs.ddns.net/safenode.tar.gz
+#--version "$NODE"
 sudo env "PATH=$PATH" safenode-manager start --interval $DELAY_BETWEEN_NODES | tee /tmp/influx-resources/nodemanager_output & disown
 
 
