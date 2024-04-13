@@ -109,7 +109,7 @@ rewards_balance=$(${HOME}/.local/bin/safe wallet balance --peer-id="$base_dirs/$
 #  echo "Rewards balance: $rewards_balance"
 
 
-echo "nodes,service_number=$NUMBER,id=$ID cpu=$cpu_usage,mem=$mem_used,status=$status,pid=$PID"i",records=$records"i",disk=$disk,rewards=$rewards_balance $influx_time"
+echo "nodes,id=$ID,service_number=$NUMBER cpu=$cpu_usage,mem=$mem_used,status=$status,pid=$PID"i",records=$records"i",disk=$disk,rewards=$rewards_balance $influx_time"
 
 
 total_disk=`echo $total_disk+$disk | bc`
