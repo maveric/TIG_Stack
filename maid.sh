@@ -194,4 +194,30 @@ rustup update
 sudo apt update -y && sudo apt upgrade -y
 sudo reboot
 
+######################################################################################################################### add more nodes
+elif [[ "$SELECTION" == "8" ]]; then
+
+NUMBER_NODES=$(whiptail --title "Number of Nodes to start" --inputbox "\nEnter number of nodes" 8 40 $NUMBER_NODES 3>&1 1>&2 2>&3)
+if [[ $? -eq 255 ]]; then
+exit 0
+fi
+
+NODE_PORT_FIRST=$(whiptail --title "Port Number of first Node" --inputbox "\nEnter Port Number of first Node" 8 40 $NODE_PORT_FIRST 3>&1 1>&2 2>&3)
+if [[ $? -eq 255 ]]; then
+exit 0
+fi
+
+DELAY_BETWEEN_NODES=$(whiptail --title "Delay between starting nodes in seconds" --inputbox "\nEnter delay between nodes?" 8 40 $DELAY_BETWEEN_NODES 3>&1 1>&2 2>&3)
+DELAY_BETWEEN_NODES=`echo $DELAY_BETWEEN_NODES*1000 | bc`
+if [[ $? -eq 255 ]]; then
+exit 0
+fi
+
+############################## open ports
+sudo ufw allow $NODE_PORT_FIRST:$(($NODE_PORT_FIRST+$NUMBER_NODES-1))/udp comment 'safe nodes'
+sleep 2
+
+sudo env "PATH=$PATH" safenode-manager add --node-port "$NODE_PORT_FIRST"-$(($NODE_PORT_FIRST+$NUMBER_NODES-1))  --count "$NUMBER_NODES"  --peer "$PEER" --version "$NODE"
+sudo env "PATH=$PATH" safenode-manager start --interval $DELAY_BETWEEN_NODES | tee /tmp/influx-resources/nodemanager_output & disown
+
 fi
