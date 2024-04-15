@@ -33,7 +33,8 @@ SELECTION=$(whiptail --title "Safe Network Testnet 1.0" --radiolist \
 "4" "Get Test Coins" ON \
 "5" "Upgrade Nodes" OFF \
 "6" "Start Vdash" OFF \
-"7" "Update & Upgrade SYSTEM and RESTART!!   " OFF 3>&1 1>&2 2>&3)
+"7" "Update & Upgrade SYSTEM and RESTART!!   " OFF \
+"8" "Add more nodes   " OFF 3>&1 1>&2 2>&3)
 
 if [[ $? -eq 255 ]]; then
 exit 0
