@@ -13,7 +13,7 @@ PEER="/ip4/165.227.225.208/udp/55913/quic-v1/p2p/12D3KooWJ6NwxiqMj9Xy6XzLS5GD2V9
 NODE_PORT_FIRST=4700
 NUMBER_NODES=50
 NUMBER_COINS=1
-CPU_TARGET=70
+CPU_TARGET=60
 
 export NEWT_COLORS='
 window=,white
@@ -24,7 +24,7 @@ button=black,white
 
 ############################################## select test net action
 
-SELECTION=$(whiptail --title "Safe Network Testnet 1.2" --radiolist \
+SELECTION=$(whiptail --title "Safe Network Testnet 1.3" --radiolist \
 "Testnet Actions                              " 20 70 10 \
 "1" "Install & Start Nodes " OFF \
 "2" "Upgrade Client to Latest" OFF \
