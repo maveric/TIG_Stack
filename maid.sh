@@ -132,7 +132,7 @@ wait_until_cpu_low() {
 }
 
 for ((i=1;i<=$NUMBER_NODES;i++)); do
-    sudo env "PATH=$PATH" safenode-manager start --service-name safenode$i | tee /tmp/influx-resources/nodemanager_output & disown
+    sudo env "PATH=$PATH" safenode-manager start --service-name safenode$i
     wait_until_cpu_low $CPU_TARGET
 done
 
