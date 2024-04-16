@@ -4014,14 +4014,14 @@
           "type": "influxdb",
           "uid": "${DS_INFLUXDB}"
         },
-        "definition": "import \"influxdata/influxdb/schema\"\n\nschema.tagValues(bucket: \"${bucket}\", tag: \"host\")",
+        "definition": "import \"influxdata/influxdb/schema\"\n\nschema.tagValues(bucket: \"telegraf\", tag: \"host\")",
         "hide": 0,
         "includeAll": false,
         "label": "host",
         "multi": false,
         "name": "host",
         "options": [],
-        "query": "import \"influxdata/influxdb/schema\"\n\nschema.tagValues(bucket: \"${bucket}\", tag: \"host\")",
+        "query": "import \"influxdata/influxdb/schema\"\n\nschema.tagValues(bucket: \"telegraf\", tag: \"host\")",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -4177,6 +4177,6 @@
   "timezone": "browser",
   "title": "Safe Dashboard",
   "uid": "7JdIfTn9z",
-  "version": 55,
+  "version": 5,
   "weekStart": ""
 }
