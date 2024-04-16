@@ -14,7 +14,7 @@ PEER="/ip4/165.227.225.208/udp/55913/quic-v1/p2p/12D3KooWJ6NwxiqMj9Xy6XzLS5GD2V9
 NODE_PORT_FIRST=4700
 NUMBER_NODES=50
 NUMBER_COINS=1
-DELAY_BETWEEN_NODES=21
+CPU_TARGET=70
 NODE_START_TIME=0
 
 export NEWT_COLORS='
@@ -79,12 +79,6 @@ if [[ $? -eq 255 ]]; then
 exit 0
 fi
 
-DELAY_BETWEEN_NODES=$(whiptail --title "Delay between starting nodes in seconds" --inputbox "\nEnter delay between nodes?" 8 40 $DELAY_BETWEEN_NODES 3>&1 1>&2 2>&3)
-DELAY_BETWEEN_NODES=`echo $DELAY_BETWEEN_NODES*1000 | bc`
-if [[ $? -eq 255 ]]; then
-exit 0
-fi
-
 ##############################  close fire wall
 yes y | sudo ufw delete $(sudo ufw status numbered |(grep 'safe nodes'|awk -F"[][]" '{print $2}')) && yes y | sudo ufw delete $(sudo ufw status numbered |(grep 'safe nodes'|awk -F"[][]" '{print $2}'))
 ############################## Stop Nodes and delete safe folder
@@ -125,7 +119,24 @@ mkdir -p /tmp/influx-resources
 #sudo env "PATH=$PATH" safenode-manager add --node-port "$NODE_PORT_FIRST"-$(($NODE_PORT_FIRST+$NUMBER_NODES-1))  --count "$NUMBER_NODES"  --peer "$PEER"  --url http://safe-logs.ddns.net/safenode.tar.gz
 
 sudo env "PATH=$PATH" safenode-manager add --node-port "$NODE_PORT_FIRST"-$(($NODE_PORT_FIRST+$NUMBER_NODES-1))  --count "$NUMBER_NODES"  --peer "$PEER" --version "$NODE"
-sudo env "PATH=$PATH" safenode-manager start --interval $DELAY_BETWEEN_NODES | tee /tmp/influx-resources/nodemanager_output & disown
+#sudo env "PATH=$PATH" safenode-manager start --interval $DELAY_BETWEEN_NODES | tee /tmp/influx-resources/nodemanager_output & disown
+
+# FOR USE UNTILL TESTING --INTERVAL IS COMPLETED
+
+sudo apt install sysstat -y
+
+wait_until_cpu_low() {
+    awk -v target="$1" '
+    $13 ~ /^[0-9.]+$/ {
+      current = 100 - $13
+      if(current <= target) { exit(0); }
+    }' < <(LC_ALL=C mpstat 1)
+}
+
+for ((i=1;i<=$NUMBER_NODES;i++)); do
+    sudo env "PATH=$PATH" safenode-manager start --service-name safenode$i | tee /tmp/influx-resources/nodemanager_output & disown
+    wait_until_cpu_low $CPU_TARGET
+done
 
 
 
