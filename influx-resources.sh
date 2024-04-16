@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 export PATH=$PATH:$HOME/.local/bin
 
 base_dirs="/var/safenode-manager/services"
