@@ -24,7 +24,7 @@ button=black,white
 
 ############################################## select test net action
 
-SELECTION=$(whiptail --title "Safe Network Testnet 1.0" --radiolist \
+SELECTION=$(whiptail --title "Safe Network Testnet 1.1" --radiolist \
 "Testnet Actions                              " 20 70 10 \
 "1" "Install & Start Nodes " OFF \
 "2" "Upgrade Client to Latest" OFF \
@@ -123,17 +123,18 @@ sudo env "PATH=$PATH" safenode-manager add --node-port "$NODE_PORT_FIRST"-$(($NO
 
 sudo apt install sysstat -y
 
-wait_until_cpu_low() {
-    awk -v target="$1" '
-    $13 ~ /^[0-9.]+$/ {
-      current = 100 - $13
-      if(current <= target) { exit(0); }
-    }' < <(LC_ALL=C mpstat 1)
+wait_for_cpu_usage()
+{
+    current=$(mpstat 1 1 | awk '$13 ~ /[0-9.]+/ { print int(100 - $13 + 0.5) }')
+    while [[ "$current" -ge "$1" ]]; do
+        current=$(mpstat 1 1 | awk '$13 ~ /[0-9.]+/ { print int(100 - $13 + 0.5) }')
+        sleep 30
+    done
 }
 
 for ((i=1;i<=$NUMBER_NODES;i++)); do
     sudo env "PATH=$PATH" safenode-manager start --service-name safenode$i
-    wait_until_cpu_low $CPU_TARGET
+    wait_for_cpu_usage $CPU_TARGET
 done
 
 
