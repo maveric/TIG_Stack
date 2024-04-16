@@ -132,10 +132,10 @@ wait_for_cpu_usage()
     done
 }
 
-for ((i=1;i<=$NUMBER_NODES;i++)); do
-    sudo env "PATH=$PATH" safenode-manager start --service-name safenode$i
+(for ((i=1;i<=$NUMBER_NODES;i++)); do
+    sudo env "PATH=$PATH" safenode-manager start --service-name safenode$i | tee /tmp/influx-resources/nodemanager_output
     wait_for_cpu_usage $CPU_TARGET
-done
+done) & disown
 
 
 
