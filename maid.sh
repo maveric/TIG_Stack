@@ -24,7 +24,7 @@ button=black,white
 
 ############################################## select test net action
 
-SELECTION=$(whiptail --title "Safe Network Testnet 1.4" --radiolist \
+SELECTION=$(whiptail --title "Safe Network Testnet 1.5" --radiolist \
 "Testnet Actions                              " 20 70 10 \
 "1" "Install & Start Nodes " OFF \
 "2" "Upgrade Client to Latest" OFF \
@@ -201,8 +201,19 @@ fi
 
 safeup node-manager
 
+wait_for_cpu_usage()
+{
+    current=$(mpstat 1 1 | awk '$13 ~ /[0-9.]+/ { print int(100 - $13 + 0.5) }')
+    while [[ "$current" -ge "$1" ]]; do
+        current=$(mpstat 1 1 | awk '$13 ~ /[0-9.]+/ { print int(100 - $13 + 0.5) }')
+        sleep 30
+    done
+}
+
+rm /tmp/influx-resources/node_upgrade_report
+
 (for ((i=1;i<=$NUMBER_NODES;i++)); do
-    sudo env "PATH=$PATH" safenode-manager start --service-name safenode$i
+    sudo env "PATH=$PATH" safenode-manager upgrade --service-name safenode$i | tee -a /tmp/influx-resources/node_upgrade_report
     wait_for_cpu_usage $CPU_TARGET
 done) & disown
 
