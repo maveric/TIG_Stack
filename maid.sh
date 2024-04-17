@@ -193,10 +193,20 @@ done
 
 ######################################################################################################################### Upgrade Nodes
 elif [[ "$SELECTION" == "5" ]]; then
-sudo rm /etc/cron.d/influx_resources
-#safeup node-manager
-mkdir -p /tmp/influx-resources
-sudo env "PATH=$PATH" safenode-manager upgrade | tee /tmp/influx-resources/node_upgrade_report && echo "*/5 * * * * $USER /usr/bin/mkdir -p /tmp/influx-resources && /bin/bash /usr/bin/influx-resources.sh > /tmp/influx-resources/influx-resources" | sudo tee /etc/cron.d/influx_resources & disown
+
+NUMBER_NODES=$(whiptail --title "Number of Nodes to upgrade" --inputbox "\nEnter number of running nodes?" 8 40 $NUMBER_NODES 3>&1 1>&2 2>&3)
+if [[ $? -eq 255 ]]; then
+exit 0
+fi
+
+safeup node-manager
+
+(for ((i=1;i<=$NUMBER_NODES;i++)); do
+    sudo env "PATH=$PATH" safenode-manager start --service-name safenode$i
+    wait_for_cpu_usage $CPU_TARGET
+done) & disown
+
+
 ######################################################################################################################### Start Vdash
 elif [[ "$SELECTION" == "6" ]]; then
 vdash --glob-path "/var/log/safenode/*/safenode.log"
