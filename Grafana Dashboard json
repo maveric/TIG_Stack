@@ -153,7 +153,7 @@
           "refId": "A"
         }
       ],
-      "title": "Total Rewards in Dirvines",
+      "title": "Total Rewards in Dirvine's",
       "transformations": [
         {
           "id": "calculateField",
@@ -385,7 +385,7 @@
           "refId": "A"
         }
       ],
-      "title": "Total nodes running",
+      "title": "Total Node's Running",
       "transformations": [
         {
           "id": "calculateField",
@@ -462,7 +462,7 @@
           "refId": "A"
         }
       ],
-      "title": "Total nodes killed",
+      "title": "Total Node's Killed",
       "transformations": [
         {
           "id": "calculateField",
@@ -1365,7 +1365,7 @@
           "refId": "A"
         }
       ],
-      "title": "Host's Rewards in Dirvines",
+      "title": "Host's Rewards in Dirvine's",
       "transformations": [
         {
           "id": "calculateField",
@@ -1441,7 +1441,7 @@
           "refId": "A"
         }
       ],
-      "title": "Nodes running",
+      "title": "Node's Running",
       "type": "stat"
     },
     {
