@@ -153,7 +153,7 @@
           "refId": "A"
         }
       ],
-      "title": "Total Rewards in Dirvine's",
+      "title": "Total Rewards in Dirvines",
       "transformations": [
         {
           "id": "calculateField",
@@ -385,7 +385,7 @@
           "refId": "A"
         }
       ],
-      "title": "Total Node's Running",
+      "title": "Total nodes running",
       "transformations": [
         {
           "id": "calculateField",
@@ -462,7 +462,7 @@
           "refId": "A"
         }
       ],
-      "title": "Total Node's Killed",
+      "title": "Total nodes Killed",
       "transformations": [
         {
           "id": "calculateField",
@@ -2479,8 +2479,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2617,8 +2616,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2781,8 +2779,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2950,8 +2947,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3149,8 +3145,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3348,8 +3343,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3529,8 +3523,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3658,8 +3651,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3750,8 +3742,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3842,8 +3833,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3934,8 +3924,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -4176,7 +4165,7 @@
   },
   "timezone": "browser",
   "title": "Safe Dashboard",
-  "uid": "7JdIfTn9z",
-  "version": 5,
+  "uid": "7JdIffTn9z",
+  "version": 2,
   "weekStart": ""
 }
