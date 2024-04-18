@@ -487,7 +487,7 @@ sudo rm -rf $HOME/.local/share/tig-stack/telegraf
 rm -rf /tmp/influx-resources
 
 # enter the ipaddress and port of the influx instalation
-INFLUXDB_IP_PORT=$(whiptail --title "IP address & Port of InfluxDB2" --inputbox "\nIP Address & Port of Influxdb2" 8 60 IP_HOSTNAME:$INFLUXDB_PORT 3>&1 1>&2 2>&3)
+INFLUXDB_IP_PORT=$(whiptail --title "IP address & Port of InfluxDB2" --inputbox "\nIP Address & Port of Influxdb2" 8 60 127.0.0.1:$INFLUXDB_PORT 3>&1 1>&2 2>&3)
 if [[ $? -eq 255 ]]; then
 exit 0
 fi
