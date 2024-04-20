@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
-
 CLIENT=0.90.4
 NODE=0.105.6
-FAUCET=188.166.171.13:8000
-PEER="/ip4/165.227.225.208/udp/55913/quic-v1/p2p/12D3KooWJ6NwxiqMj9Xy6XzLS5GD2V9Ks4NvTLoXejQHXMcKP34k"
+FAUCET=52.213.146.192:8000
+PEER="/ip4/52.213.146.192/udp/12005/quic-v1/p2p/12D3KooWDkBNvpn8WeDuHoWqfLrnT8KTNZWmth9ZBeKJxH2bfiWb"
 # get from https://sn-testnet.s3.eu-west-2.amazonaws.com/network-contacts
 
 #run with
@@ -115,9 +114,9 @@ sleep 2
 
 mkdir -p /tmp/influx-resources
 
-#sudo env "PATH=$PATH" safenode-manager add --node-port "$NODE_PORT_FIRST"-$(($NODE_PORT_FIRST+$NUMBER_NODES-1))  --count "$NUMBER_NODES"  --peer "$PEER"  --url http://safe-logs.ddns.net/safenode.tar.gz
+sudo env "PATH=$PATH" safenode-manager add --node-port "$NODE_PORT_FIRST"-$(($NODE_PORT_FIRST+$NUMBER_NODES-1))  --count "$NUMBER_NODES"  --peer "$PEER"  --url http://safe-logs.ddns.net/safenode.tar.gz
 
-sudo env "PATH=$PATH" safenode-manager add --node-port "$NODE_PORT_FIRST"-$(($NODE_PORT_FIRST+$NUMBER_NODES-1))  --count "$NUMBER_NODES"  --peer "$PEER" --version "$NODE"
+#sudo env "PATH=$PATH" safenode-manager add --node-port "$NODE_PORT_FIRST"-$(($NODE_PORT_FIRST+$NUMBER_NODES-1))  --count "$NUMBER_NODES"  --peer "$PEER" --version "$NODE"
 #sudo env "PATH=$PATH" safenode-manager start --interval $DELAY_BETWEEN_NODES | tee /tmp/influx-resources/nodemanager_output & disown
 
 # FOR USE UNTILL TESTING --INTERVAL IS COMPLETED
