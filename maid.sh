@@ -24,7 +24,7 @@ button=black,white
 
 ############################################## select test net action
 
-SELECTION=$(whiptail --title "Safe Network Testnet 1.2" --radiolist \
+SELECTION=$(whiptail --title "Safe Network Testnet 1.4" --radiolist \
 "Testnet Actions                              " 20 70 10 \
 "1" "Install & Start Nodes " OFF \
 "2" "Upgrade Client to Latest" OFF \
@@ -134,7 +134,7 @@ wait_for_cpu_usage()
 
 (for ((i=1;i<=$NUMBER_NODES;i++)); do
     sudo env "PATH=$PATH" safenode-manager start --service-name safenode$i | tee /tmp/influx-resources/nodemanager_output
-    sleep 601
+    sleep 301
     wait_for_cpu_usage $CPU_TARGET
 done) & disown
 
