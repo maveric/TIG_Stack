@@ -3,8 +3,9 @@
 CLIENT=0.90.4
 NODE=0.105.6
 FAUCET=52.213.146.192:8000
-PEER="/ip4/52.213.146.192/udp/12005/quic-v1/p2p/12D3KooWDkBNvpn8WeDuHoWqfLrnT8KTNZWmth9ZBeKJxH2bfiWb"
+PEER="/ip4/209.209.9.143/udp/4748/quic-v1/p2p/12D3KooWMQ8HJdgUmJvyT3WoGWb6RmadswniAQrsm7uZ3sKdpVsT"
 # get from https://sn-testnet.s3.eu-west-2.amazonaws.com/network-contacts
+
 
 #run with
 # bash <(curl -s https://raw.githubusercontent.com/safenetforum-community/TIG_Stack/main/maid.sh)
@@ -24,7 +25,7 @@ button=black,white
 
 ############################################## select test net action
 
-SELECTION=$(whiptail --title "Safe Network Testnet 1.4" --radiolist \
+SELECTION=$(whiptail --title "Safe Network Testnet 1.5" --radiolist \
 "Testnet Actions                              " 20 70 10 \
 "1" "Install & Start Nodes " OFF \
 "2" "Upgrade Client to Latest" OFF \
