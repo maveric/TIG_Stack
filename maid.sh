@@ -89,6 +89,7 @@ sudo rm -rf /var/lib/vnstat/
 sudo systemctl start vnstat.service
 
 safeup node-manager
+safeup client --version "$CLIENT"
 
 cargo install vdash
 
