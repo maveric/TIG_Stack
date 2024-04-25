@@ -26,7 +26,7 @@ button=black,white
 
 ############################################## select test net action
 
-SELECTION=$(whiptail --title "Safe Network Testnet 1.2" --radiolist \
+SELECTION=$(whiptail --title "Safe Network Testnet 1.0" --radiolist \
 "Testnet Actions                              " 20 70 10 \
 "1" "Install & Start Nodes " OFF \
 "2" "Upgrade Client to Latest" OFF \
@@ -101,7 +101,11 @@ sleep 2
 
 mkdir -p /tmp/influx-resources
 
-sudo env "PATH=$PATH" safenode-manager add --node-port "$NODE_PORT_FIRST"-$(($NODE_PORT_FIRST+$NUMBER_NODES-1))  --count "$NUMBER_NODES" --version "$NODE"
+# for cloud instances
+#sudo env "PATH=$PATH" safenode-manager add --node-port "$NODE_PORT_FIRST"-$(($NODE_PORT_FIRST+$NUMBER_NODES-1))  --count "$NUMBER_NODES" --version "$NODE"
+
+# for home nodes hole punching
+sudo env "PATH=$PATH" safenode-manager add --home-network --count "$NUMBER_NODES" --version "$NODE"
 
 sudo env "PATH=$PATH" safenode-manager start --interval $DELAY_BETWEEN_NODES | tee /tmp/influx-resources/nodemanager_output & disown
 
