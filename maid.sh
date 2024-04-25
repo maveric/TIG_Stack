@@ -215,7 +215,27 @@ elif [[ "$SELECTION" == "6" ]]; then
 vdash --glob-path "/var/log/safenode/*/safenode.log"
 ######################################################################################################################### spare
 elif [[ "$SELECTION" == "7" ]]; then
-echo spare
+
+# stop nodes
+# nuke safe node manager services 1 - 100 untill nuke comand exists
+
+for i in {1..100}
+do
+ # your-unix-command-here
+ sudo systemctl disable --now safenode$i
+done
+
+sudo rm /etc/systemd/system/safenode*
+sudo systemctl daemon-reload
+
+sudo rm -rf /var/safenode-manager
+sudo rm -rf /var/log/safenode
+rm -rf  ~/.local/share/local_machine/
+
+sleep 2
+
+
+
 ######################################################################################################################### add more nodes
 elif [[ "$SELECTION" == "8" ]]; then
 
