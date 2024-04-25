@@ -216,6 +216,8 @@ vdash --glob-path "/var/log/safenode/*/safenode.log"
 ######################################################################################################################### spare
 elif [[ "$SELECTION" == "7" ]]; then
 
+sudo pkill -e safe
+
 # stop nodes
 # nuke safe node manager services 1 - 100 untill nuke comand exists
 
