@@ -26,7 +26,7 @@ button=black,white
 
 ############################################## select test net action
 
-SELECTION=$(whiptail --title "Safe Network Testnet 1.1" --radiolist \
+SELECTION=$(whiptail --title "Safe Network Testnet 1.0" --radiolist \
 "Testnet Actions                              " 20 70 10 \
 "1" "Install & Start Nodes " OFF \
 "2" "Upgrade Client to Latest" OFF \
@@ -34,7 +34,7 @@ SELECTION=$(whiptail --title "Safe Network Testnet 1.1" --radiolist \
 "4" "Get Test Coins" ON \
 "5" "Upgrade Nodes" OFF \
 "6" "Start Vdash" OFF \
-"7" "Update & Upgrade SYSTEM and RESTART!!   " OFF \
+"7" "Spare                        " OFF \
 "8" "Add more nodes   " OFF 3>&1 1>&2 2>&3)
 
 if [[ $? -eq 255 ]]; then
@@ -157,7 +157,10 @@ yes y | sudo ufw delete $(sudo ufw status numbered |(grep 'safe nodes'|awk -F"[]
 yes y | sudo ufw delete $(sudo ufw status numbered |(grep 'safe nodes'|awk -F"[][]" '{print $2}')) && yes y | sudo ufw delete $(sudo ufw status numbered |(grep 'safe nodes'|awk -F"[][]" '{print $2}'))
 yes y | sudo ufw delete $(sudo ufw status numbered |(grep 'safe nodes'|awk -F"[][]" '{print $2}')) && yes y | sudo ufw delete $(sudo ufw status numbered |(grep 'safe nodes'|awk -F"[][]" '{print $2}'))
 
+rustup update
+sudo apt update -y && sudo apt upgrade -y
 sudo reboot
+
 
 ######################################################################################################################## Get Test Coins
 elif [[ "$SELECTION" == "4" ]]; then
@@ -203,12 +206,9 @@ done) & disown
 ######################################################################################################################### Start Vdash
 elif [[ "$SELECTION" == "6" ]]; then
 vdash --glob-path "/var/log/safenode/*/safenode.log"
-######################################################################################################################### update and restart
+######################################################################################################################### spare
 elif [[ "$SELECTION" == "7" ]]; then
-rustup update
-sudo apt update -y && sudo apt upgrade -y
-sudo reboot
-
+echo spare
 ######################################################################################################################### add more nodes
 elif [[ "$SELECTION" == "8" ]]; then
 
