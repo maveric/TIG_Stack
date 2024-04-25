@@ -3,7 +3,7 @@
 CLIENT=0.91.0-alpha.4
 NODE=0.106.0-alpha.4
 FAUCET=209.97.185.196:8000
-PEER="/ip4/165.227.239.170/udp/46212/quic-v1/p2p/12D3KooWRtejNqpxCdEsmhoWRVGMo49oDMysCfMTqkeQGfxUNSKv"
+PEER="/ip4/144.126.234.162/udp/37284/quic-v1/p2p/12D3KooWFTMioLueKChk9rWEFNFGTH3zRQ6eTiGxjL2ss1wWgZ11"
 # get from https://sn-testnet.s3.eu-west-2.amazonaws.com/network-contacts
 
 
@@ -26,7 +26,7 @@ button=black,white
 
 ############################################## select test net action
 
-SELECTION=$(whiptail --title "Safe Network Testnet 1.0" --radiolist \
+SELECTION=$(whiptail --title "Safe Network Testnet 1.1" --radiolist \
 "Testnet Actions                              " 20 70 10 \
 "1" "Install & Start Nodes " OFF \
 "2" "Upgrade Client to Latest" OFF \
@@ -100,7 +100,9 @@ sleep 2
 
 mkdir -p /tmp/influx-resources
 
-sudo env "PATH=$PATH" safenode-manager add --node-port "$NODE_PORT_FIRST"-$(($NODE_PORT_FIRST+$NUMBER_NODES-1))  --count "$NUMBER_NODES"  --peer "$PEER" --version "$NODE"
+sudo env "PATH=$PATH" safenode-manager add --node-port "$NODE_PORT_FIRST"-$(($NODE_PORT_FIRST+$NUMBER_NODES-1))  --count "$NUMBER_NODES" --version "$NODE"
+#  --peer "$PEER"
+
 sudo env "PATH=$PATH" safenode-manager start --interval $DELAY_BETWEEN_NODES | tee /tmp/influx-resources/nodemanager_output & disown
 
 #sudo env "PATH=$PATH" safenode-manager add --node-port "$NODE_PORT_FIRST"-$(($NODE_PORT_FIRST+$NUMBER_NODES-1))  --count "$NUMBER_NODES"  --peer "$PEER"  --url http://safe-logs.ddns.net/safenode.tar.gz
