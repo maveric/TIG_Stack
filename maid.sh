@@ -15,6 +15,7 @@ NODE_PORT_FIRST=4700
 NUMBER_NODES=50
 NUMBER_COINS=1
 CPU_TARGET=60
+DELAY_BETWEEN_NODES=301000
 
 export NEWT_COLORS='
 window=,white
@@ -43,24 +44,8 @@ fi
 ################################################################################################################ start or Upgrade Client & Node to Latest
 if [[ "$SELECTION" == "1" ]]; then
 
-# remove NTracking cron jobs temp til NTracking is fixed
-sudo rm /etc/cron.d/ntracking*
-# add cron job for tig stack on 5 min schedule
-echo "*/5 * * * * $USER /usr/bin/mkdir -p /tmp/influx-resources && /bin/bash /usr/bin/influx-resources.sh > /tmp/influx-resources/influx-resources" | sudo tee /etc/cron.d/influx_resources
 
-# nuke safe node manager services 1 - 100 untill nuke comand exists
-
-for i in {1..100}
-do
- # your-unix-command-here
- sudo systemctl disable --now safenode$i
-done
-
-sudo rm /etc/systemd/system/safenode*
-sudo systemctl daemon-reload
-
-sudo rm -rf /var/safenode-manager
-sudo rm -rf /var/log/safenode
+sudo env "PATH=$PATH" safenode-manager reset
 rm -rf  ~/.local/share/local_machine/
 
 
@@ -115,29 +100,30 @@ sleep 2
 
 mkdir -p /tmp/influx-resources
 
-sudo env "PATH=$PATH" safenode-manager add --node-port "$NODE_PORT_FIRST"-$(($NODE_PORT_FIRST+$NUMBER_NODES-1))  --count "$NUMBER_NODES"  --peer "$PEER"  --url http://safe-logs.ddns.net/safenode.tar.gz
+sudo env "PATH=$PATH" safenode-manager add --node-port "$NODE_PORT_FIRST"-$(($NODE_PORT_FIRST+$NUMBER_NODES-1))  --count "$NUMBER_NODES"  --peer "$PEER" --version "$NODE"
+sudo env "PATH=$PATH" safenode-manager start --interval $DELAY_BETWEEN_NODES | tee /tmp/influx-resources/nodemanager_output & disown
 
-#sudo env "PATH=$PATH" safenode-manager add --node-port "$NODE_PORT_FIRST"-$(($NODE_PORT_FIRST+$NUMBER_NODES-1))  --count "$NUMBER_NODES"  --peer "$PEER" --version "$NODE"
-#sudo env "PATH=$PATH" safenode-manager start --interval $DELAY_BETWEEN_NODES | tee /tmp/influx-resources/nodemanager_output & disown
+#sudo env "PATH=$PATH" safenode-manager add --node-port "$NODE_PORT_FIRST"-$(($NODE_PORT_FIRST+$NUMBER_NODES-1))  --count "$NUMBER_NODES"  --peer "$PEER"  --url http://safe-logs.ddns.net/safenode.tar.gz
+
 
 # FOR USE UNTILL TESTING --INTERVAL IS COMPLETED
 
-sudo apt install sysstat -y
+#sudo apt install sysstat -y
 
-wait_for_cpu_usage()
-{
-    current=$(mpstat 1 1 | awk '$13 ~ /[0-9.]+/ { print int(100 - $13 + 0.5) }')
-    while [[ "$current" -ge "$1" ]]; do
-        current=$(mpstat 1 1 | awk '$13 ~ /[0-9.]+/ { print int(100 - $13 + 0.5) }')
-        sleep 30
-    done
-}
+#wait_for_cpu_usage()
+#{
+#    current=$(mpstat 1 1 | awk '$13 ~ /[0-9.]+/ { print int(100 - $13 + 0.5) }')
+#    while [[ "$current" -ge "$1" ]]; do
+#        current=$(mpstat 1 1 | awk '$13 ~ /[0-9.]+/ { print int(100 - $13 + 0.5) }')
+#        sleep 30
+#    done
+#}
 
-(for ((i=1;i<=$NUMBER_NODES;i++)); do
-    sudo env "PATH=$PATH" safenode-manager start --service-name safenode$i | tee /tmp/influx-resources/nodemanager_output
-    sleep 301
-    wait_for_cpu_usage $CPU_TARGET
-done) & disown
+#(for ((i=1;i<=$NUMBER_NODES;i++)); do
+#    sudo env "PATH=$PATH" safenode-manager start --service-name safenode$i | tee /tmp/influx-resources/nodemanager_output
+#    sleep 301
+#    wait_for_cpu_usage $CPU_TARGET
+#done) & disown
 
 
 
@@ -156,29 +142,20 @@ safe wallet get-faucet "$FAUCET"
 ######################################################################################################################## Stop Nodes
 elif [[ "$SELECTION" == "3" ]]; then
 
-# stop nodes
-# nuke safe node manager services 1 - 100 untill nuke comand exists
 
-for i in {1..100}
-do
- # your-unix-command-here
- sudo systemctl disable --now safenode$i
-done
-
-sudo rm /etc/systemd/system/safenode*
-sudo systemctl daemon-reload
-
-sudo rm -rf /var/safenode-manager
-sudo rm -rf /var/log/safenode
+sudo env "PATH=$PATH" safenode-manager reset
 rm -rf  ~/.local/share/local_machine/
 
 sleep 2
 
-sudo reboot
 
 ############################## close fire wall
 
 yes y | sudo ufw delete $(sudo ufw status numbered |(grep 'safe nodes'|awk -F"[][]" '{print $2}')) && yes y | sudo ufw delete $(sudo ufw status numbered |(grep 'safe nodes'|awk -F"[][]" '{print $2}'))
+yes y | sudo ufw delete $(sudo ufw status numbered |(grep 'safe nodes'|awk -F"[][]" '{print $2}')) && yes y | sudo ufw delete $(sudo ufw status numbered |(grep 'safe nodes'|awk -F"[][]" '{print $2}'))
+yes y | sudo ufw delete $(sudo ufw status numbered |(grep 'safe nodes'|awk -F"[][]" '{print $2}')) && yes y | sudo ufw delete $(sudo ufw status numbered |(grep 'safe nodes'|awk -F"[][]" '{print $2}'))
+
+sudo reboot
 
 ######################################################################################################################## Get Test Coins
 elif [[ "$SELECTION" == "4" ]]; then
