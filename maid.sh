@@ -234,7 +234,7 @@ rm -rf $HOME/.local/share/safe/client
 safeup client
 
 sudo env "PATH=$PATH" safenode-manager reset
-sudo env "PATH=$PATH" safenode-manager add --home-network --count "$NUMBER_NODES" --version "$NODE"
+sudo env "PATH=$PATH" safenode-manager add --home-network --count 10 --version "$NODE"
 sudo env "PATH=$PATH" safenode-manager start --interval $DELAY_BETWEEN_NODES | tee /tmp/influx-resources/nodemanager_output & disown
 vdash --glob-path "/.local/share/safe/node/*/safenode.log"
 
