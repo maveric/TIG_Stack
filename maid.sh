@@ -229,7 +229,9 @@ vdash --glob-path "/var/log/safenode/*/safenode.log"
 ######################################################################################################################### spare
 elif [[ "$SELECTION" == "7" ]]; then
 
-echo "spare"
+curl https://sh.rustup.rs -sSf | sh
+sudo apt install cargo
+cargo install vdash
 
 ######################################################################################################################### add more nodes
 elif [[ "$SELECTION" == "8" ]]; then
