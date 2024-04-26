@@ -229,9 +229,15 @@ vdash --glob-path "/var/log/safenode/*/safenode.log"
 ######################################################################################################################### spare
 elif [[ "$SELECTION" == "7" ]]; then
 
-curl https://sh.rustup.rs -sSf | sh
-sudo apt install cargo
-cargo install vdash
+rm -rf $HOME/.local/share/safe/client
+# upgrade client and get some Coins
+safeup client
+
+sudo env "PATH=$PATH" safenode-manager reset
+sudo env "PATH=$PATH" safenode-manager add --home-network --count "$NUMBER_NODES" --version "$NODE"
+sudo env "PATH=$PATH" safenode-manager start --interval $DELAY_BETWEEN_NODES | tee /tmp/influx-resources/nodemanager_output & disown
+vdash --glob-path "/.local/share/safe/node/*/safenode.log"
+
 
 ######################################################################################################################### add more nodes
 elif [[ "$SELECTION" == "8" ]]; then
