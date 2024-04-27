@@ -13,7 +13,7 @@ cargo install vdash
 curl -sSL https://raw.githubusercontent.com/maidsafe/safeup/main/install.sh | bash
 
 
-nohup safenode --home-network & disown
+nohup safenode --home-network --peer "/ip4/38.102.125.152/udp/4749/quic-v1/p2p/12D3KooWGqRcjpkLNijUZpNCtscTzaPPW6uzhpY45Y1z2ZRW4U1F" & disown
 
 
 vdash --glob-path "~/.local/share/safe/node/*/safenode.log"
