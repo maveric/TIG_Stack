@@ -198,7 +198,7 @@ done
 ######################################################################################################################### Upgrade Nodes
 elif [[ "$SELECTION" == "5" ]]; then
 
-sudo env "PATH=$PATH" safenode-manager upgrade --interval 31  | tee -a /tmp/influx-resources/node_upgrade_report
+sudo env "PATH=$PATH" safenode-manager upgrade --interval 31000  | tee -a /tmp/influx-resources/node_upgrade_report
 
 ######################################################################################################################### Start Vdash
 elif [[ "$SELECTION" == "6" ]]; then
