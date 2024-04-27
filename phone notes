@@ -1,0 +1,19 @@
+sudo apt update
+sudo apt upgrade
+
+$ sudo rm -f /etc/ssl/certs/ca-bundle.crt
+$ sudo apt reinstall ca-certificates
+$ sudo update-ca-certificates
+
+
+curl https://sh.rustup.rs -sSf | sh
+sudo apt install cargo
+cargo install vdash
+
+curl -sSL https://raw.githubusercontent.com/maidsafe/safeup/main/install.sh | bash
+
+
+nohup safenode --home-network & disown
+
+
+vdash --glob-path "~/.local/share/safe/node/*/safenode.log"
