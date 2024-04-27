@@ -45,9 +45,14 @@ fi
 if [[ "$SELECTION" == "1" ]]; then
 
 
-sudo env "PATH=$PATH" safenode-manager reset
-rm -rf  ~/.local/share/local_machine/
+NODE_TYPE=$(whiptail --title "Safe Network Testnet 1.0" --radiolist \
+"Type of Nodes to start                              " 20 70 10 \
+"1" "Node from home no port forwarding    " ON \
+"2" "Cloud based nodes with port forwarding   " OFF 3>&1 1>&2 2>&3)
 
+if [[ $? -eq 255 ]]; then
+exit 0
+fi
 
 #install latest infux resources script from github
 sudo rm /usr/bin/influx-resources.sh* && sudo wget -P /usr/bin  https://raw.githubusercontent.com/safenetforum-community/TIG_Stack/main/influx-resources.sh && sudo chmod u+x /usr/bin/influx-resources.sh
@@ -58,14 +63,25 @@ if [[ $? -eq 255 ]]; then
 exit 0
 fi
 
+
+if [[ "$NODE_TYPE" == "2" ]]; then
+
 NODE_PORT_FIRST=$(whiptail --title "Port Number of first Node" --inputbox "\nEnter Port Number of first Node" 8 40 $NODE_PORT_FIRST 3>&1 1>&2 2>&3)
 if [[ $? -eq 255 ]]; then
 exit 0
+fi
+############################## open ports
+sudo ufw allow $NODE_PORT_FIRST:$(($NODE_PORT_FIRST+$NUMBER_NODES-1))/udp comment 'safe nodes'
+sleep 2
+
 fi
 
 ##############################  close fire wall
 yes y | sudo ufw delete $(sudo ufw status numbered |(grep 'safe nodes'|awk -F"[][]" '{print $2}')) && yes y | sudo ufw delete $(sudo ufw status numbered |(grep 'safe nodes'|awk -F"[][]" '{print $2}'))
 ############################## Stop Nodes and delete safe folder
+
+sudo env "PATH=$PATH" safenode-manager reset
+rm -rf  ~/.local/share/local_machine/
 
 # sudo snap remove curl
 # sudo apt install curl
@@ -93,19 +109,18 @@ safeup client --version "$CLIENT"
 
 cargo install vdash
 
-############################## open ports
-sudo ufw allow $NODE_PORT_FIRST:$(($NODE_PORT_FIRST+$NUMBER_NODES-1))/udp comment 'safe nodes'
-sleep 2
-
 ############################## start nodes
 
 mkdir -p /tmp/influx-resources
 
+if [[ "$NODE_TYPE" == "2" ]]; then
 # for cloud instances
-#sudo env "PATH=$PATH" safenode-manager add --node-port "$NODE_PORT_FIRST"-$(($NODE_PORT_FIRST+$NUMBER_NODES-1))  --count "$NUMBER_NODES" --version "$NODE"
+sudo env "PATH=$PATH" safenode-manager add --node-port "$NODE_PORT_FIRST"-$(($NODE_PORT_FIRST+$NUMBER_NODES-1))  --count "$NUMBER_NODES" --version "$NODE"
 
+else
 # for home nodes hole punching
 sudo env "PATH=$PATH" safenode-manager add --home-network --count "$NUMBER_NODES" --version "$NODE"
+fi
 
 sudo env "PATH=$PATH" safenode-manager start --interval $DELAY_BETWEEN_NODES | tee /tmp/influx-resources/nodemanager_output & disown
 
