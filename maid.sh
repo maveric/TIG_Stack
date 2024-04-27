@@ -26,7 +26,7 @@ button=black,white
 
 ############################################## select test net action
 
-SELECTION=$(whiptail --title "Safe Network Testnet 1.2" --radiolist \
+SELECTION=$(whiptail --title "Safe Network Testnet 1.0" --radiolist \
 "Testnet Actions                              " 20 70 10 \
 "1" "Install & Start Nodes " OFF \
 "2" "Upgrade Client to Latest" OFF \
@@ -198,30 +198,7 @@ done
 ######################################################################################################################### Upgrade Nodes
 elif [[ "$SELECTION" == "5" ]]; then
 
-safeup node-manager
-
-sudo apt install sysstat -y
-
-wait_for_cpu_usage()
-{
-    current=$(mpstat 1 1 | awk '$13 ~ /[0-9.]+/ { print int(100 - $13 + 0.5) }')
-    while [[ "$current" -ge "$1" ]]; do
-        current=$(mpstat 1 1 | awk '$13 ~ /[0-9.]+/ { print int(100 - $13 + 0.5) }')
-        sleep 30
-    done
-}
-
-rm /tmp/influx-resources/node_upgrade_report
-
-# count nodes running under safe node manager
-NUMBER_NODES=$(ls -l /var/safenode-manager/services | grep ^d | wc -l)
-
-(for ((i=1;i<=$NUMBER_NODES;i++)); do
-    sudo env "PATH=$PATH" safenode-manager upgrade --service-name safenode$i | tee -a /tmp/influx-resources/node_upgrade_report
-    sleep 120
-    wait_for_cpu_usage $CPU_TARGET
-done) & disown
-
+sudo env "PATH=$PATH" safenode-manager upgrade --interval 31  | tee -a /tmp/influx-resources/node_upgrade_report
 
 ######################################################################################################################### Start Vdash
 elif [[ "$SELECTION" == "6" ]]; then
