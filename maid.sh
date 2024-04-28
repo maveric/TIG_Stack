@@ -35,7 +35,7 @@ SELECTION=$(whiptail --title "Safe Network Testnet 1.3" --radiolist \
 "5" "Upgrade Nodes" OFF \
 "6" "Start Vdash" OFF \
 "7" "Spare                        " OFF \
-"8" "Add more nodes   " OFF 3>&1 1>&2 2>&3)
+"8" "Spare   " OFF 3>&1 1>&2 2>&3)
 
 if [[ $? -eq 255 ]]; then
 exit 0
@@ -221,34 +221,12 @@ vdash --glob-path "/var/log/safenode/*/safenode.log"
 ######################################################################################################################### spare
 elif [[ "$SELECTION" == "7" ]]; then
 
-rm -rf $HOME/.local/share/safe/client
-# upgrade client and get some Coins
-safeup client
+echo "spare 7"
 
-sudo env "PATH=$PATH" safenode-manager reset
-sudo env "PATH=$PATH" safenode-manager add --home-network --count 10 --version "$NODE"
-sudo env "PATH=$PATH" safenode-manager start --interval $DELAY_BETWEEN_NODES | tee /tmp/influx-resources/nodemanager_output & disown
-vdash --glob-path "/.local/share/safe/node/*/safenode.log"
-
-
-######################################################################################################################### add more nodes
+######################################################################################################################### spare
 elif [[ "$SELECTION" == "8" ]]; then
 
-NUMBER_NODES=$(whiptail --title "Number of Nodes to start" --inputbox "\nEnter number of nodes" 8 40 $NUMBER_NODES 3>&1 1>&2 2>&3)
-if [[ $? -eq 255 ]]; then
-exit 0
-fi
-
-NODE_PORT_FIRST=$(whiptail --title "Port Number of first Node" --inputbox "\nEnter Port Number of first Node" 8 40 $NODE_PORT_FIRST 3>&1 1>&2 2>&3)
-if [[ $? -eq 255 ]]; then
-exit 0
-fi
-
-DELAY_BETWEEN_NODES=$(whiptail --title "Delay between starting nodes in seconds" --inputbox "\nEnter delay between nodes?" 8 40 $DELAY_BETWEEN_NODES 3>&1 1>&2 2>&3)
-DELAY_BETWEEN_NODES=`echo $DELAY_BETWEEN_NODES*1000 | bc`
-if [[ $? -eq 255 ]]; then
-exit 0
-fi
+echo "spare 8"
 
 ############################## open ports
 sudo ufw allow $NODE_PORT_FIRST:$(($NODE_PORT_FIRST+$NUMBER_NODES-1))/udp comment 'safe nodes'
