@@ -90,7 +90,7 @@ rm -rf  ~/.local/share/local_machine/
 #curl -sSL https://raw.githubusercontent.com/maidsafe/safeup/main/install.sh | bash
 #source ~/.config/safe/env
 
-rm -rf $HOME/.local/share/safe
+rm -rf $HOME/.local/share/safe/node
 
 # remove ntracking logs
 rm -rf $HOME/.local/share/local_machine
